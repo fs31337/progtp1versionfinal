@@ -18,6 +18,9 @@ public class Juego extends InterfaceJuego
 	
 	private Entorno entorno;
 	public static final String TITULO ="Boss Rabbit Rabber - Grupo 6 - v1";
+	
+	Fondo fondo;
+	
 	private Conejo conejo;
 	
 	private Carretera carretera1;
@@ -27,8 +30,7 @@ public class Juego extends InterfaceJuego
 	private Carretera carretera5;
 	private Carretera carretera6;
 	private Carretera carretera7;
-	private Carretera carretera8;
-	
+	private Carretera carretera8;	
 
 	private Trafico autos1;
 	private Trafico autos2;
@@ -61,6 +63,7 @@ public class Juego extends InterfaceJuego
 	{
 		
 		this.entorno = new Entorno(this, TITULO, 800, 647);
+		//this.fondo = new Fondo(400);
 		
 		this.conejo = new Conejo();
 		this.establecerPosInicialConejo();
@@ -347,7 +350,14 @@ public class Juego extends InterfaceJuego
 			kamehameha.establecerPos(conejo);
 			kamehameha.dibujar(entorno);
 			kamehameha.movimientoAtaque();
-			destruirAutoConKame(autos1);	
+			destruirAutoConKame(autos1);
+			destruirAutoConKame(autos2);	
+			destruirAutoConKame(autos3);	
+			destruirAutoConKame(autos4);	
+			destruirAutoConKame(autos5);	
+			destruirAutoConKame(autos6);	
+			destruirAutoConKame(autos7);	
+			destruirAutoConKame(autos8);	
 		}
 		
 	}

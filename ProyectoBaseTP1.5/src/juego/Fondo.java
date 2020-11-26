@@ -7,15 +7,13 @@ import entorno.*;
 public class Fondo {
 	private double x,y;
 	private int ancho,alto;
-	private Entorno entorno;
 	private Image imagen;
 	
-	public Fondo(Entorno entorno, double y) {
-		this.entorno=entorno;
-		this.x=entorno.ancho()/2;
+	public Fondo(double y) {
+		this.x=0;
 		this.y=y;
-		this.alto=100;
-		this.ancho=entorno.ancho();	
+		this.alto=0;
+		this.ancho=0;	
 		cargarImagenes();
 	}
 
@@ -58,12 +56,6 @@ public class Fondo {
 		this.alto = alto;
 	}
 	
-	public void iniciarComponentesEnTick() {
-		dibujarFondo();
-		avanzar();
-		reiniciar();
-	}
-	
 	private void cargarImagenes() {
 		try {
 				this.imagen = Herramientas.cargarImagen("./resources/fondo/pasto1.png");
@@ -73,18 +65,10 @@ public class Fondo {
 		}
 	}
 
-	private void dibujarFondo() {	
+	private void dibujarFondo(Entorno entorno) {	
 		entorno.dibujarImagen(imagen, x, y, 0, 1.5);
 	}
-	private void avanzar() {
-		y+=0.2;
-	}
-	public void detener() {
-		y-=0.2;
-	}
-	private void reiniciar() {
-		if(y>entorno.alto()-150) {
-			y=400;
-		}
-	}
+	
+
+	
 }
