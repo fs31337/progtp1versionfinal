@@ -1,20 +1,31 @@
 package juego;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import entorno.Entorno;
+import entorno.Herramientas;
 
 public class Carretera {
 	private double x,y,ancho,alto;
 	private Sentido sentido;
+	private Image imagen;
+	private Image calle1;
+	private Image calle2;
+	private Image calle3;
+	private Image calle4;
+	private Image[] calles;
+	
 	enum Sentido{
 		DERECHA,IZQUIERDA
 	}
-	public Carretera() {
+	public Carretera(int imagen) {
 		this.y=0;
 		this.x=0;
 		this.alto=0;
 		this.ancho=0;
+		cargarImagenes();
+		this.imagen = calles[imagen-1];
 	}
 	public double getY() {
 		return this.y;
@@ -34,7 +45,7 @@ public class Carretera {
 		this.y=y;
 	}
 	public void dibujar(Entorno entorno) {
-		entorno.dibujarRectangulo(x, y, ancho, alto, 0, Color.BLUE);
+		entorno.dibujarImagen(imagen, x, y, 0,0.6);
 	}
 	public void avanzar() {
 		this.y+=0.2;
@@ -46,4 +57,19 @@ public class Carretera {
 	public void establecerSentido(Sentido sentido) {
 		this.sentido=sentido;
 	}
+	
+	private void cargarImagenes() {
+		try {
+				this.calle1 = Herramientas.cargarImagen("./resources/fondo/calle1.png");
+				this.calle2 = Herramientas.cargarImagen("./resources/fondo/calle2.png");
+				this.calle3 = Herramientas.cargarImagen("./resources/fondo/calle3.png");
+				this.calle4 = Herramientas.cargarImagen("./resources/fondo/calle4.png");
+			}		
+		catch (Exception e){
+			e.printStackTrace(System.err);
+		}
+		calles = new Image [] {calle1,calle2,calle3,calle4};
+	}
+	
+	
 }

@@ -21,23 +21,24 @@ public class Juego extends InterfaceJuego
 	private Conejo conejo;
 	
 	private Carretera carretera1;
-	/*private Carretera carretera2;
+	private Carretera carretera2;
 	private Carretera carretera3;
 	private Carretera carretera4;
 	private Carretera carretera5;
 	private Carretera carretera6;
 	private Carretera carretera7;
 	private Carretera carretera8;
-	*/
+	
+
 	private Trafico autos1;
-	/*private Trafico autos2;
+	private Trafico autos2;
 	private Trafico autos3;
 	private Trafico autos4;
 	private Trafico autos5;
 	private Trafico autos6;
 	private Trafico autos7;
 	private Trafico autos8;
-	*/
+	
 	private Kamehameha kamehameha;
 	private Zanahorias zanahorias;
 	private RayoConversorZanahoria rayoConversorZanahoria;
@@ -59,16 +60,70 @@ public class Juego extends InterfaceJuego
 	public Juego()
 	{
 		
-		this.entorno = new Entorno(this, TITULO, 800, 600);
+		this.entorno = new Entorno(this, TITULO, 800, 647);
+		
 		this.conejo = new Conejo();
-		this.carretera1 = new Carretera();
-		this.autos1 = new Trafico(4);
 		this.establecerPosInicialConejo();
+		
+		this.carretera1 = new Carretera(1);		
 		this.carretera1.establecerTamano(entorno);
-		this.carretera1.establecerPos(entorno,100);
-		this.carretera1.establecerSentido(Sentido.DERECHA);
+		this.carretera1.establecerPos(entorno,-127);
+		this.carretera1.establecerSentido(Sentido.DERECHA);			
+		this.carretera2 = new Carretera(2);		
+		this.carretera2.establecerTamano(entorno);
+		this.carretera2.establecerPos(entorno,-57);
+		this.carretera2.establecerSentido(Sentido.IZQUIERDA);			
+		this.carretera3 = new Carretera(3);		
+		this.carretera3.establecerTamano(entorno);
+		this.carretera3.establecerPos(entorno,13);
+		this.carretera3.establecerSentido(Sentido.DERECHA);		
+		this.carretera4 = new Carretera(4);		
+		this.carretera4.establecerTamano(entorno);
+		this.carretera4.establecerPos(entorno, 83);
+		this.carretera4.establecerSentido(Sentido.IZQUIERDA);
+		
+		this.carretera5 = new Carretera(1);		
+		this.carretera5.establecerTamano(entorno);
+		this.carretera5.establecerPos(entorno,260);
+		this.carretera5.establecerSentido(Sentido.DERECHA);			
+		this.carretera6 = new Carretera(2);		
+		this.carretera6.establecerTamano(entorno);
+		this.carretera6.establecerPos(entorno,330);
+		this.carretera6.establecerSentido(Sentido.IZQUIERDA);			
+		this.carretera7 = new Carretera(3);		
+		this.carretera7.establecerTamano(entorno);
+		this.carretera7.establecerPos(entorno,400);
+		this.carretera7.establecerSentido(Sentido.DERECHA);		
+		this.carretera8 = new Carretera(4);		
+		this.carretera8.establecerTamano(entorno);
+		this.carretera8.establecerPos(entorno,470);
+		this.carretera8.establecerSentido(Sentido.IZQUIERDA);		
+		
+		this.autos1 = new Trafico(4);
 		this.autos1.crearAutos();
 		this.autos1.posicionarAutos();
+		this.autos2 = new Trafico(4);
+		this.autos2.crearAutos();
+		this.autos2.posicionarAutos();
+		this.autos3 = new Trafico(4);
+		this.autos3.crearAutos();
+		this.autos3.posicionarAutos();
+		this.autos4 = new Trafico(4);
+		this.autos4.crearAutos();
+		this.autos4.posicionarAutos();
+		this.autos5 = new Trafico(4);
+		this.autos5.crearAutos();
+		this.autos5.posicionarAutos();
+		this.autos6 = new Trafico(4);
+		this.autos6.crearAutos();
+		this.autos6.posicionarAutos();
+		this.autos7 = new Trafico(4);
+		this.autos7.crearAutos();
+		this.autos7.posicionarAutos();
+		this.autos8 = new Trafico(4);
+		this.autos8.crearAutos();
+		this.autos8.posicionarAutos();
+		
 		this.juegoTerminado=false;
 		this.puntosTotal=0;
 		this.saltos=0;
@@ -96,9 +151,30 @@ public class Juego extends InterfaceJuego
 			conejoAtrasado();
 			avanzarTodo();
 			atropellaConejo(autos1);
+			atropellaConejo(autos2);
+			atropellaConejo(autos3);
+			atropellaConejo(autos4);
+			atropellaConejo(autos5);
+			atropellaConejo(autos6);
+			atropellaConejo(autos7);
+			atropellaConejo(autos8);
 			resetearCarreteraDesaparece(carretera1);
+			resetearCarreteraDesaparece(carretera2);
+			resetearCarreteraDesaparece(carretera3);
+			resetearCarreteraDesaparece(carretera4);
+			resetearCarreteraDesaparece(carretera5);
+			resetearCarreteraDesaparece(carretera6);
+			resetearCarreteraDesaparece(carretera7);
+			resetearCarreteraDesaparece(carretera8);
 			dispararKamehameha();
 			autoTocaLimite(autos1, carretera1);
+			autoTocaLimite(autos2, carretera2);
+			autoTocaLimite(autos3, carretera3);
+			autoTocaLimite(autos4, carretera4);
+			autoTocaLimite(autos5, carretera5);
+			autoTocaLimite(autos6, carretera6);
+			autoTocaLimite(autos7, carretera7);
+			autoTocaLimite(autos8, carretera8);
 			escribirSaltos();
 			escribirPuntajeTotal();
 			escribirTiempoRecargaKame();
@@ -130,8 +206,22 @@ public class Juego extends InterfaceJuego
 	}
 	private void dibujarTodo() {
 		carretera1.dibujar(entorno);
+		carretera2.dibujar(entorno);
+		carretera3.dibujar(entorno);
+		carretera4.dibujar(entorno);
+		carretera5.dibujar(entorno);
+		carretera6.dibujar(entorno);
+		carretera7.dibujar(entorno);
+		carretera8.dibujar(entorno);
 		conejo.dibujar(entorno);
 		autos1.dibujarAutos(entorno);
+		autos2.dibujarAutos(entorno);
+		autos3.dibujarAutos(entorno);
+		autos4.dibujarAutos(entorno);
+		autos5.dibujarAutos(entorno);
+		autos6.dibujarAutos(entorno);
+		autos7.dibujarAutos(entorno);
+		autos8.dibujarAutos(entorno);
 	}
 	private void establecerPosInicialConejo() {
 		conejo.setX(entorno.ancho()/2);
@@ -170,7 +260,21 @@ public class Juego extends InterfaceJuego
 		if(!ZaWarudo) {
 		conejo.avanzar();
 		carretera1.avanzar();
+		carretera2.avanzar();
+		carretera3.avanzar();
+		carretera4.avanzar();
+		carretera5.avanzar();
+		carretera6.avanzar();
+		carretera7.avanzar();
+		carretera8.avanzar();
 		autos1.avanzarAutosPorCarretera(carretera1, 1);
+		autos2.avanzarAutosPorCarretera(carretera2, 2);
+		autos3.avanzarAutosPorCarretera(carretera3, 1.5);
+		autos4.avanzarAutosPorCarretera(carretera4, 2.5);
+		autos5.avanzarAutosPorCarretera(carretera5, 1);
+		autos6.avanzarAutosPorCarretera(carretera6, 2.5);
+		autos7.avanzarAutosPorCarretera(carretera7, 0.5);
+		autos8.avanzarAutosPorCarretera(carretera8, 2);
 		}
 	}
 	public boolean verificarDesapareceCarretera(Carretera carretera) {
