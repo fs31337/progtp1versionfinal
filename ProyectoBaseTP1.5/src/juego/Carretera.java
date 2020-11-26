@@ -25,7 +25,7 @@ public class Carretera {
 	public Sentido getSentido() {
 		return this.sentido;
 	}
-	public void establecerTamaño(Entorno entorno) {
+	public void establecerTamano(Entorno entorno) {
 		this.alto=50;
 		this.ancho=entorno.ancho();
 	}
@@ -37,6 +37,9 @@ public class Carretera {
 		entorno.dibujarRectangulo(x, y, ancho, alto, 0, Color.BLUE);
 	}
 	public void avanzar() {
+		this.y+=0.2;
+	}
+	public void detener() {
 		this.y+=0.2;
 	}
 	

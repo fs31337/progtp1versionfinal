@@ -45,8 +45,17 @@ public class Juego extends InterfaceJuego
 	private int puntosTotal, saltos;
 	private Timer tiempoActivoKame;
 	private Timer tiempoRecargaKame;
+	private Timer tiempoActivoRayo;
+	private Timer tiempoRecargaRayo;
+	private Timer tiempoEsperaMovConejo;
+	private Timer tiempoActivoZaWarudo;
+	private boolean esperaMovConejo;
 	private boolean recargaKame;
+	private boolean recargaRayo;
 	private int centesimasRecargaKame, segRecargaKame;
+	private int centesimasRecargaRayo, segRecargaRayo;
+	private int centesimasActivoZaWarudo, segActivoZaWarudo;
+	private boolean ZaWarudo;
 	public Juego()
 	{
 		
@@ -55,7 +64,7 @@ public class Juego extends InterfaceJuego
 		this.carretera1 = new Carretera();
 		this.autos1 = new Trafico(4);
 		this.establecerPosInicialConejo();
-		this.carretera1.establecerTamaño(entorno);
+		this.carretera1.establecerTamano(entorno);
 		this.carretera1.establecerPos(entorno,100);
 		this.carretera1.establecerSentido(Sentido.DERECHA);
 		this.autos1.crearAutos();
@@ -64,9 +73,16 @@ public class Juego extends InterfaceJuego
 		this.puntosTotal=0;
 		this.saltos=0;
 		this.recargaKame=false;
+		this.recargaRayo=false;
 		this.centesimasRecargaKame=0;
 		this.segRecargaKame=0;
+		this.centesimasRecargaRayo=0;
+		this.segRecargaRayo=0;
 		this.zanahorias=new Zanahorias();
+		this.esperaMovConejo=false;
+		this.ZaWarudo=false;
+		this.centesimasActivoZaWarudo=0;
+		this.segActivoZaWarudo=0;
 		this.entorno.iniciar();
 	}
 	
@@ -74,7 +90,7 @@ public class Juego extends InterfaceJuego
 	
 	public void tick()
 	{
-		if(!juegoTerminado) {
+		if(!juegoTerminado()) {
 			dibujarTodo();
 			movimientoConejo();
 			conejoAtrasado();
@@ -87,14 +103,30 @@ public class Juego extends InterfaceJuego
 			escribirPuntajeTotal();
 			escribirTiempoRecargaKame();
 			dispararRayoConversor();
-			convertirAutosEnZanahoria(autos1);
 			zanahoriasActivas();
 			comerZanahoria();
 			resetearZanahoria();
+			escribirTiempoRecargaRayo();
+			detenerTiempo();
+			escribirTiempoActivoZaWarudo();
 			
-
 		}
-
+		else {
+			juegoTerminado();
+		}
+	}
+	private boolean juegoTerminado() {
+		if(juegoTerminado) {
+			entorno.cambiarFont("Arial", 120, Color.WHITE);
+			entorno.escribirTexto("PERDISTE", entorno.ancho()/8, entorno.alto()/2);
+			return true;
+		}
+		if(puntosTotal>=100) {
+			entorno.cambiarFont("Arial", 120, Color.WHITE);
+			entorno.escribirTexto("GANASTE", entorno.ancho()/8, entorno.alto()/2);
+			return true;
+		}
+		return false;
 	}
 	private void dibujarTodo() {
 		carretera1.dibujar(entorno);
@@ -107,29 +139,39 @@ public class Juego extends InterfaceJuego
 	}
 	
 	private void movimientoConejo() {
-		if(entorno.sePresiono('w') || entorno.sePresiono(entorno.TECLA_ARRIBA)) {
-			if(!conejoTocaLimiteSuperior()) {
-				conejo.moverseArriba();
-				saltos++;
-				puntosTotal++;
+		if(!esperaMovConejo) {
+			if(entorno.sePresiono('w') || entorno.sePresiono(entorno.TECLA_ARRIBA)) {
+				if(!conejoTocaLimiteSuperior()) {
+					conejo.moverseArriba();
+					saltos++;
+					puntosTotal++;
+					esperaMovConejo=true;
+					tiempoEsperaMovConejo();
+				}
 			}
-		}
-		if(entorno.sePresiono('a') || entorno.sePresiono(entorno.TECLA_IZQUIERDA)) {
-			if(!conejoTocaLimiteIzquierdo()) {
-				conejo.moverseIzquierda();
+			if(entorno.sePresiono('a') || entorno.sePresiono(entorno.TECLA_IZQUIERDA)) {
+				if(!conejoTocaLimiteIzquierdo()) {
+					conejo.moverseIzquierda();
+					esperaMovConejo=true;
+					tiempoEsperaMovConejo();
+				}
 			}
-		}
-		if(entorno.sePresiono('d') || entorno.sePresiono(entorno.TECLA_DERECHA)) {
-			if(!conejoTocaLimiteDerecho()) {
-				conejo.moverseDerecha();
+			if(entorno.sePresiono('d') || entorno.sePresiono(entorno.TECLA_DERECHA)) {
+				if(!conejoTocaLimiteDerecho()) {
+					conejo.moverseDerecha();
+					esperaMovConejo=true;
+					tiempoEsperaMovConejo();
+				}
 			}
 		}
 	}
 	
 	private void avanzarTodo() {
+		if(!ZaWarudo) {
 		conejo.avanzar();
 		carretera1.avanzar();
 		autos1.avanzarAutosPorCarretera(carretera1, 1);
+		}
 	}
 	public boolean verificarDesapareceCarretera(Carretera carretera) {
 		if(carretera.getY()>=entorno.alto()+50) {
@@ -283,15 +325,46 @@ public class Juego extends InterfaceJuego
 		
 	}
 	private void dispararRayoConversor() {
-		if(entorno.sePresiono('r')) {
+		if(entorno.sePresiono('r') && recargaRayo==false) {
 			rayoConversorZanahoria=conejo.disparararRayoConversor();
 			rayoConversorZanahoria.establecerPosX(conejo);
 			rayoConversorZanahoria.establecerPosY(conejo);
+			recargaRayo=true;
+			rayoConvTiempoActivo();
+			rayoConvTiempoRecarga();
+			centesimasRecargaRayo=0;
+			segRecargaRayo=3;
+			
 		}
 		if(rayoConversorZanahoria!=null) {
 			rayoConversorZanahoria.dibujar(entorno);
 			rayoConversorZanahoria.movimietoAtaque();
+			convertirAutosEnZanahoria(autos1);
 		}
+	}
+	private void rayoConvTiempoActivo() {
+		tiempoActivoRayo=new Timer(1000,new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rayoConversorZanahoria=null;
+				tiempoActivoRayo.stop();
+				
+			}
+		});
+		tiempoActivoRayo.start();
+	}
+	private void rayoConvTiempoRecarga() {
+		tiempoRecargaRayo=new Timer(4000,new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				recargaRayo=false;
+				tiempoRecargaRayo.stop();
+				
+			}
+		});
+		tiempoRecargaRayo.start();
 	}
 	private boolean colisionRayoConversorAuto(Auto auto) {
 		return rayoConversorZanahoria.getX() > auto.getX() - (rayoConversorZanahoria.getAncho()) &&
@@ -317,7 +390,9 @@ public class Juego extends InterfaceJuego
 		for(int i=0;i<zanahorias.zanahorias.size();i++) {
 			if(zanahorias.zanahorias.get(i)!=null) {
 				zanahorias.zanahorias.get(i).dibujar(entorno);
+				if(!ZaWarudo) {
 				zanahorias.zanahorias.get(i).avanzar();
+				}
 			}
 		}
 	}
@@ -344,6 +419,63 @@ public class Juego extends InterfaceJuego
 					zanahorias.zanahorias.get(i).setY(-50);
 				}
 			}
+		}
+		
+	}
+	private void escribirTiempoRecargaRayo() {
+		if(recargaRayo) {
+			centesimasRecargaRayo++;
+			if(centesimasRecargaRayo>=100) {
+				segRecargaRayo--;
+				centesimasRecargaRayo=0;
+			}
+			entorno.cambiarFont("Arial Black", 20, Color.WHITE);
+			entorno.escribirTexto("Recarga Rayo Conversor: "+ segRecargaRayo, 300, 40);
+		}
+		
+	}
+	private void tiempoEsperaMovConejo() {
+		tiempoEsperaMovConejo=new Timer(200,new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				esperaMovConejo=false;
+				tiempoEsperaMovConejo.stop();
+				
+			}
+		});
+		tiempoEsperaMovConejo.start();
+	}
+	private void detenerTiempo() {
+		if(entorno.sePresiono('z') && ZaWarudo==false) {
+			ZaWarudo=true;
+			tiempoActivoZaWarudo();
+			Herramientas.play("./resources/sonido/zaWarudo.wav");
+			this.centesimasActivoZaWarudo=0;
+			this.segActivoZaWarudo=10;
+		}
+	}
+	private void tiempoActivoZaWarudo() {
+		tiempoActivoZaWarudo=new Timer(11000,new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ZaWarudo=false;
+				tiempoActivoZaWarudo.stop();
+				
+			}
+		});
+		tiempoActivoZaWarudo.start();
+	}
+	private void escribirTiempoActivoZaWarudo() {
+		if(ZaWarudo) {
+			centesimasActivoZaWarudo++;
+			if(centesimasActivoZaWarudo>=100) {
+				segActivoZaWarudo--;
+				centesimasActivoZaWarudo=0;
+			}
+			entorno.cambiarFont("Arial Black", 20, Color.YELLOW);
+			entorno.escribirTexto("Za Warudo: "+ segActivoZaWarudo, 600, 20);
 		}
 		
 	}

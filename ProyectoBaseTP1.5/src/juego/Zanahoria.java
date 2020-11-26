@@ -33,6 +33,9 @@ public class Zanahoria {
 	public void avanzar() {
 		this.y+=0.2;
 	}
+	public void detener() {
+		this.y-=0.2;
+	}
 	public void setX(double x) {
 		this.x=x;
 	}

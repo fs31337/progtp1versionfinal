@@ -43,6 +43,16 @@ public class Auto {
 		}
 		
 	}
+	public void detenerPorCarretera(Carretera carretera, double velocidad) {
+		this.y=carretera.getY();
+		if(carretera.getSentido().equals(Sentido.DERECHA)) {
+			this.x-=velocidad;
+		}
+		else if(carretera.getSentido().equals(Sentido.IZQUIERDA)) {
+			this.x+=velocidad;
+		}
+		
+	}
 	
 
 
