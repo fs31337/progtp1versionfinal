@@ -464,6 +464,13 @@ public class Juego extends InterfaceJuego
 			rayoConversorZanahoria.dibujar(entorno);
 			rayoConversorZanahoria.movimietoAtaque();
 			convertirAutosEnZanahoria(autos1);
+			convertirAutosEnZanahoria(autos2);
+			convertirAutosEnZanahoria(autos3);
+			convertirAutosEnZanahoria(autos4);
+			convertirAutosEnZanahoria(autos5);
+			convertirAutosEnZanahoria(autos6);
+			convertirAutosEnZanahoria(autos7);
+			convertirAutosEnZanahoria(autos8);
 		}
 	}
 	private void rayoConvTiempoActivo() {
