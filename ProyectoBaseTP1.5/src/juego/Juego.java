@@ -385,7 +385,7 @@ public class Juego extends InterfaceJuego
 	}
 	
 	private void kamehamehaTiempoActivo() {
-		tiempoActivoKame=new Timer(1000,new ActionListener() {
+		tiempoActivoKame=new Timer(3000,new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -467,7 +467,7 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private void rayoConvTiempoActivo() {
-		tiempoActivoRayo=new Timer(1000,new ActionListener() {
+		tiempoActivoRayo=new Timer(4000,new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -479,7 +479,7 @@ public class Juego extends InterfaceJuego
 		tiempoActivoRayo.start();
 	}
 	private void rayoConvTiempoRecarga() {
-		tiempoRecargaRayo=new Timer(4000,new ActionListener() {
+		tiempoRecargaRayo=new Timer(2000,new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

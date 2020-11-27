@@ -8,7 +8,7 @@ import entorno.*;
 import juego.Carretera.Sentido;
 
 public class Auto {
-	private double x,y,ancho,alto;	
+	private double x,y,ancho,alto,angulo;
 	private Image imagen;
 	private Image auto1;
 	private Image auto2;
@@ -41,15 +41,17 @@ public class Auto {
 		this.x=x;
 	}
 	public void dibujar(Entorno entorno) {
-		entorno.dibujarImagen(imagen, x, y, 1.57, 0.7);
+		entorno.dibujarImagen(imagen, x, y, angulo, 0.7);
 	}
 	public void avanzarPorCarretera(Carretera carretera, double velocidad) {
 		this.y=carretera.getY();
 		if(carretera.getSentido().equals(Sentido.DERECHA)) {
 			this.x+=velocidad;
+			this.angulo = 1.57;
 		}
 		else if(carretera.getSentido().equals(Sentido.IZQUIERDA)) {
 			this.x-=velocidad;
+			this.angulo = 17.27;
 		}
 		
 	}
