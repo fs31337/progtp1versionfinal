@@ -10,10 +10,6 @@ public class Carretera {
 	private double x,y,ancho,alto;
 	private Sentido sentido;
 	private Image imagen;
-	private Image calle1;
-	private Image calle2;
-	private Image calle3;
-	private Image calle4;
 	private Image[] calles;
 	
 	enum Sentido{
@@ -60,16 +56,15 @@ public class Carretera {
 	
 	private void cargarImagenes() {
 		try {
-				this.calle1 = Herramientas.cargarImagen("./resources/fondo/calle1.png");
-				this.calle2 = Herramientas.cargarImagen("./resources/fondo/calle2.png");
-				this.calle3 = Herramientas.cargarImagen("./resources/fondo/calle3.png");
-				this.calle4 = Herramientas.cargarImagen("./resources/fondo/calle4.png");
+				Image calle1 = Herramientas.cargarImagen("./resources/fondo/calle1.png");
+				Image calle2 = Herramientas.cargarImagen("./resources/fondo/calle2.png");
+				Image calle3 = Herramientas.cargarImagen("./resources/fondo/calle3.png");
+				Image calle4 = Herramientas.cargarImagen("./resources/fondo/calle4.png");
+				calles = new Image [] {calle1,calle2,calle3,calle4};
 			}		
 		catch (Exception e){
 			e.printStackTrace(System.err);
 		}
-		calles = new Image [] {calle1,calle2,calle3,calle4};
 	}
-	
 	
 }

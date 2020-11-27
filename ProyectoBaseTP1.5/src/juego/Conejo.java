@@ -8,6 +8,7 @@ import entorno.*;
 public class Conejo {
 	private double x,y,ancho,alto,velocidad;
 	private Image imagen;
+	private Image[] imgconejos;
 	
 	public Conejo() {
 		this.x=0;
@@ -15,7 +16,8 @@ public class Conejo {
 		this.ancho=30;
 		this.alto=30;
 		this.velocidad=40;
-		imagenInicial();
+		cargarImagenes();
+		imagen = imgconejos[0];  //imagen inicial
 		
 	}
 	//Getters {
@@ -50,32 +52,40 @@ public class Conejo {
 		this.alto=alto;
 	}
 	// } Setters
-	private void imagenInicial() {
-		imagen=Herramientas.cargarImagen("./resources/conejo/conejoarr.png");
-	}
 	
 	public void dibujar(Entorno entorno) {
 		entorno.dibujarImagen(imagen, x, y, 0);
 	}
 	public void moverseArriba() {
 		y-=velocidad;
-		imagen=Herramientas.cargarImagen("./resources/conejo/conejoarr.png");
+		imagen=imgconejos[0];
 	}
 	
 	public void moverseIzquierda() {
 		x-=velocidad;
-		imagen=Herramientas.cargarImagen("./resources/conejo/conejoizq.png");
+		imagen=imgconejos[1];
 	}
 	public void moverseDerecha() {
 		x+=velocidad;
-		imagen=Herramientas.cargarImagen("./resources/conejo/conejoder.png");
+		imagen=imgconejos[2];
 	}
 	public void avanzar() {
 		this.y+=0.2;
 	}
+	private void cargarImagenes() {
+		try {
+				Image conejoarr = Herramientas.cargarImagen("./resources/conejo/conejoarr.png");
+				Image conejoizq = Herramientas.cargarImagen("./resources/conejo/conejoizq.png");
+				Image conejoder = Herramientas.cargarImagen("./resources/conejo/conejoder.png");
+				imgconejos = new Image [] {conejoarr,conejoizq,conejoder};
+			}		
+		catch (Exception e){
+			e.printStackTrace(System.err);
+		}
+	}
 	
 	public Kamehameha dispararKamehameha() {
-		Kamehameha kamehameha = new Kamehameha();
+		Kamehameha kamehameha = new Kamehameha(this.x,this.y);
 		return kamehameha;
 	}
 	public RayoConversorZanahoria disparararRayoConversor() {

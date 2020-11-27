@@ -7,9 +7,9 @@ import entorno.Entorno;
 public class Kamehameha {
 	private double x,y,ancho,alto;
 	
-	public Kamehameha() {
-		this.x=-50;
-		this.y=-50;
+	public Kamehameha(double x,double y) {
+		this.x=x;
+		this.y=y;
 		this.ancho=30;
 		this.alto=30;
 	}
@@ -29,7 +29,7 @@ public class Kamehameha {
 		entorno.dibujarRectangulo(x, y, ancho, alto, 0, Color.cyan);
 	}
 	public void movimientoAtaque() {
-		this.alto+=1.5;
+		this.y-=1.5;
 	}
 	public void establecerPos(Conejo conejo) {
 		this.y=conejo.getY()-(alto/2);

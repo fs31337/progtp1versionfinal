@@ -42,6 +42,8 @@ public class Juego extends InterfaceJuego
 	private Trafico autos8;
 	
 	private Kamehameha kamehameha;
+	private Kamehameha [] kames;
+	
 	private Zanahorias zanahorias;
 	private RayoConversorZanahoria rayoConversorZanahoria;
 	private boolean juegoTerminado;
@@ -67,6 +69,8 @@ public class Juego extends InterfaceJuego
 		
 		this.conejo = new Conejo();
 		this.establecerPosInicialConejo();
+		
+		kames = new Kamehameha [5];
 		
 		this.carretera1 = new Carretera(1);		
 		this.carretera1.establecerTamano(entorno);
@@ -347,9 +351,9 @@ public class Juego extends InterfaceJuego
 			segRecargaKame=3;
 		}
 		if(kamehameha!=null) {
-			kamehameha.establecerPos(conejo);
+			//kamehameha.establecerPos(conejo); //ahora toma x e y de conejo
 			kamehameha.dibujar(entorno);
-			kamehameha.movimientoAtaque();
+			kamehameha.movimientoAtaque();  //solo se mueve para arriba como rayoconversordezanahorias
 			destruirAutoConKame(autos1);
 			destruirAutoConKame(autos2);	
 			destruirAutoConKame(autos3);	
@@ -379,6 +383,46 @@ public class Juego extends InterfaceJuego
 			}
 		}
 	}
+	
+	private void kamehamehaTiempoActivo() {
+		tiempoActivoKame=new Timer(1000,new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				kamehameha=null;
+				tiempoActivoKame.stop();
+				
+			}
+		});
+		tiempoActivoKame.start();
+	}
+	
+	private void kamehamehaTiempoRecarga() {
+		tiempoRecargaKame=new Timer(6000,new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				recargaKame=false;
+				tiempoRecargaKame.stop();
+				
+			}
+		});
+		tiempoRecargaKame.start();
+	}
+	private void escribirTiempoRecargaKame() {
+		if(recargaKame) {
+			centesimasRecargaKame++;
+			if(centesimasRecargaKame>=100) {
+				segRecargaKame--;
+				centesimasRecargaKame=0;
+			}
+			entorno.cambiarFont("Arial Black", 20, Color.WHITE);
+			entorno.escribirTexto("Recarga Kamehameha: "+ segRecargaKame, 300, 20);
+		}
+		
+	}
+	
+	
 	private void autoTocaLimite(Trafico autos, Carretera carretera) {
 		for (int i=0; i<autos.getAutos().length;i++) {
 			if(autos.getAutos()[i]!=null) {
@@ -402,42 +446,8 @@ public class Juego extends InterfaceJuego
 		entorno.cambiarFont("Arial Black", 20, Color.white);
 		entorno.escribirTexto("Puntos: "+ puntosTotal, 20, 20);
 	}
-	private void kamehamehaTiempoActivo() {
-		tiempoActivoKame=new Timer(1000,new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				kamehameha=null;
-				tiempoActivoKame.stop();
-				
-			}
-		});
-		tiempoActivoKame.start();
-	}
-	private void kamehamehaTiempoRecarga() {
-		tiempoRecargaKame=new Timer(4000,new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				recargaKame=false;
-				tiempoRecargaKame.stop();
-				
-			}
-		});
-		tiempoRecargaKame.start();
-	}
-	private void escribirTiempoRecargaKame() {
-		if(recargaKame) {
-			centesimasRecargaKame++;
-			if(centesimasRecargaKame>=100) {
-				segRecargaKame--;
-				centesimasRecargaKame=0;
-			}
-			entorno.cambiarFont("Arial Black", 20, Color.WHITE);
-			entorno.escribirTexto("Recarga Kamehameha: "+ segRecargaKame, 300, 20);
-		}
-		
-	}
+	
+	
 	private void dispararRayoConversor() {
 		if(entorno.sePresiono('r') && recargaRayo==false) {
 			rayoConversorZanahoria=conejo.disparararRayoConversor();
