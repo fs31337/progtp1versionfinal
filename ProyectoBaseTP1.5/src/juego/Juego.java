@@ -146,6 +146,7 @@ public class Juego extends InterfaceJuego
 		this.centesimasActivoZaWarudo=0;
 		this.segActivoZaWarudo=0;
 		this.entorno.iniciar();
+		//algo magico en tu vida
 	}
 	
 	
