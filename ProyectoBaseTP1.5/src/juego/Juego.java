@@ -1,6 +1,6 @@
 package juego;
 
-
+import javax.sound.sampled.Clip;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -202,11 +202,13 @@ public class Juego extends InterfaceJuego
 		if(juegoTerminado) {
 			entorno.cambiarFont("Arial", 120, Color.WHITE);
 			entorno.escribirTexto("PERDISTE", entorno.ancho()/8, entorno.alto()/2);
+			//Herramientas.play("./resources/sonido/oof.wav"); // bugea todo xD
 			return true;
 		}
 		if(puntosTotal>=100) {
 			entorno.cambiarFont("Arial", 120, Color.WHITE);
 			entorno.escribirTexto("GANASTE", entorno.ancho()/8, entorno.alto()/2);
+			Herramientas.play("./resources/sonido/wins.wav");
 			return true;
 		}
 		return false;
@@ -244,6 +246,8 @@ public class Juego extends InterfaceJuego
 					puntosTotal++;
 					esperaMovConejo=true;
 					tiempoEsperaMovConejo();
+					Herramientas.play("./resources/sonido/jump.wav");
+					
 				}
 			}
 			if(entorno.sePresiono('a') || entorno.sePresiono(entorno.TECLA_IZQUIERDA)) {
@@ -251,6 +255,7 @@ public class Juego extends InterfaceJuego
 					conejo.moverseIzquierda();
 					esperaMovConejo=true;
 					tiempoEsperaMovConejo();
+					Herramientas.play("./resources/sonido/jump.wav");
 				}
 			}
 			if(entorno.sePresiono('d') || entorno.sePresiono(entorno.TECLA_DERECHA)) {
@@ -258,6 +263,7 @@ public class Juego extends InterfaceJuego
 					conejo.moverseDerecha();
 					esperaMovConejo=true;
 					tiempoEsperaMovConejo();
+					Herramientas.play("./resources/sonido/jump.wav");
 				}
 			}
 		}
@@ -349,6 +355,7 @@ public class Juego extends InterfaceJuego
 			recargaKame=true;
 			centesimasRecargaKame=0;
 			segRecargaKame=3;
+			Herramientas.play("./resources/sonido/kamehameha.wav");
 		}
 		if(kamehameha!=null) {
 			//kamehameha.establecerPos(conejo); //ahora toma x e y de conejo
@@ -458,6 +465,7 @@ public class Juego extends InterfaceJuego
 			rayoConvTiempoRecarga();
 			centesimasRecargaRayo=0;
 			segRecargaRayo=3;
+			Herramientas.play("./resources/sonido/Rayo_Laser.wav");
 			
 		}
 		if(rayoConversorZanahoria!=null) {
@@ -539,6 +547,7 @@ public class Juego extends InterfaceJuego
 				if(colisionConejoZanahoria(zanahorias.zanahorias.get(i))) {
 					zanahorias.zanahorias.remove(i);
 					puntosTotal+=2;
+					Herramientas.play("./resources/sonido/zanahoria.wav");
 				}
 			}
 		}
