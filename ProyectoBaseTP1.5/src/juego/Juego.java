@@ -67,7 +67,7 @@ public class Juego extends InterfaceJuego
 	{
 		
 		this.entorno = new Entorno(this, TITULO, 800, 647);
-		//this.fondo = new Fondo(400);
+		this.fondo = new Fondo(200);
 		
 		this.conejo = new Conejo();
 		this.establecerPosInicialConejo();
@@ -157,6 +157,7 @@ public class Juego extends InterfaceJuego
 	public void tick()
 	{
 		if(!juegoTerminado()) {
+			resetearFondo();
 			dibujarTodo();
 			movimientoConejo();
 			conejoAtrasado();
@@ -189,8 +190,7 @@ public class Juego extends InterfaceJuego
 			escribirSaltos();
 			escribirPuntajeTotal();
 			escribirTiempoRecargaKame();
-			dispararRayoConversor();
-			
+			dispararRayoConversor();			
 			comerZanahoria();
 			resetearZanahoria();
 			escribirTiempoRecargaRayo();
@@ -226,6 +226,7 @@ public class Juego extends InterfaceJuego
 		return false;
 	}
 	private void dibujarTodo() {
+		fondo.dibujarFondo(entorno);
 		carretera1.dibujar(entorno);
 		carretera2.dibujar(entorno);
 		carretera3.dibujar(entorno);
@@ -285,6 +286,7 @@ public class Juego extends InterfaceJuego
 	private void avanzarTodo() {
 		if(!ZaWarudo) {
 		conejo.avanzar();
+		fondo.avanzar();
 		carretera1.avanzar();
 		carretera2.avanzar();
 		carretera3.avanzar();
@@ -309,6 +311,13 @@ public class Juego extends InterfaceJuego
 		}
 		return false;
 	}
+	private void resetearFondo() {
+		if(this.fondo.getY()>=entorno.alto()-200) {
+			this.fondo.setY(200);;
+		}
+	}
+	
+	
 	private void resetearCarreteraDesaparece(Carretera carretera) {
 		if(verificarDesapareceCarretera(carretera)) {
 			carretera.setY(-50);
@@ -377,13 +386,13 @@ public class Juego extends InterfaceJuego
 			kamehamehaTiempoRecarga();
 			recargaKame=true;
 			centesimasRecargaKame=0;
-			segRecargaKame=5;
+			segRecargaKame=1;//5 original
 			Herramientas.play("./resources/sonido/kamehameha.wav");
 		}
 		for(int j=0;j<kames.length;j++) {
 			if(kames[j]!=null) {
 				kames[j].dibujar(entorno);
-				kames[j].movimientoAtaque();  //solo se mueve para arriba como rayoconversordezanahorias
+				kames[j].movimientoAtaque(); 
 				
 			}
 		}
@@ -428,7 +437,7 @@ public class Juego extends InterfaceJuego
 	}
 	
 	private void kamehamehaTiempoRecarga() {
-		tiempoRecargaKame=new Timer(6000,new ActionListener() {
+		tiempoRecargaKame=new Timer(6000,new ActionListener() { //6000 original
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {

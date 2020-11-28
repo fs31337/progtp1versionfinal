@@ -10,7 +10,7 @@ public class Fondo {
 	private Image imagen;
 	
 	public Fondo(double y) {
-		this.x=0;
+		this.x=200;
 		this.y=y;
 		this.alto=0;
 		this.ancho=0;	
@@ -65,8 +65,16 @@ public class Fondo {
 		}
 	}
 
-	private void dibujarFondo(Entorno entorno) {	
+	public void dibujarFondo(Entorno entorno) {	
 		entorno.dibujarImagen(imagen, x, y, 0, 1.5);
+	}
+	
+	public void avanzar() {
+		this.y+=0.2;
+	}
+	
+	public void detener() {
+		this.y+=0.2;
 	}
 	
 
