@@ -32,19 +32,20 @@ public class Juego extends InterfaceJuego
 	private Carretera carretera7;
 	private Carretera carretera8;	
 
-	private Trafico autos1;
-	private Trafico autos2;
-	private Trafico autos3;
-	private Trafico autos4;
-	private Trafico autos5;
-	private Trafico autos6;
-	private Trafico autos7;
-	private Trafico autos8;
+	private Auto[] autos1;
+	private Auto[] autos2;
+	private Auto[] autos3;
+	private Auto[] autos4;
+	private Auto[] autos5;
+	private Auto[] autos6;
+	private Auto[] autos7;
+	private Auto[] autos8;
 	
 	private Kamehameha kamehameha;
 	private Kamehameha [] kames;
 	
-	private Zanahorias zanahorias;
+	
+	private Zanahoria[] zanahorias;
 	private RayoConversorZanahoria rayoConversorZanahoria;
 	private boolean juegoTerminado;
 	private int puntosTotal, saltos;
@@ -61,6 +62,7 @@ public class Juego extends InterfaceJuego
 	private int centesimasRecargaRayo, segRecargaRayo;
 	private int centesimasActivoZaWarudo, segActivoZaWarudo;
 	private boolean ZaWarudo;
+	private boolean musicaReproducida;
 	public Juego()
 	{
 		
@@ -71,6 +73,7 @@ public class Juego extends InterfaceJuego
 		this.establecerPosInicialConejo();
 		
 		kames = new Kamehameha [5];
+		zanahorias = new Zanahoria[15];
 		
 		this.carretera1 = new Carretera(1);		
 		this.carretera1.establecerTamano(entorno);
@@ -106,31 +109,30 @@ public class Juego extends InterfaceJuego
 		this.carretera8.establecerPos(entorno,470);
 		this.carretera8.establecerSentido(Sentido.IZQUIERDA);		
 		
-		this.autos1 = new Trafico(4);
-		this.autos1.crearAutos();
-		this.autos1.posicionarAutos();
-		this.autos2 = new Trafico(4);
-		this.autos2.crearAutos();
-		this.autos2.posicionarAutos();
-		this.autos3 = new Trafico(4);
-		this.autos3.crearAutos();
-		this.autos3.posicionarAutos();
-		this.autos4 = new Trafico(4);
-		this.autos4.crearAutos();
-		this.autos4.posicionarAutos();
-		this.autos5 = new Trafico(4);
-		this.autos5.crearAutos();
-		this.autos5.posicionarAutos();
-		this.autos6 = new Trafico(4);
-		this.autos6.crearAutos();
-		this.autos6.posicionarAutos();
-		this.autos7 = new Trafico(4);
-		this.autos7.crearAutos();
-		this.autos7.posicionarAutos();
-		this.autos8 = new Trafico(4);
-		this.autos8.crearAutos();
-		this.autos8.posicionarAutos();
-		
+		this.autos1 = new Auto[5];
+		this.crearAutos(autos1);
+		this.posicionarAutos(autos1);
+		this.autos2 = new Auto[5];
+		this.crearAutos(autos2);
+		this.posicionarAutos(autos2);
+		this.autos3 = new Auto[5];
+		this.crearAutos(autos3);
+		this.posicionarAutos(autos3);
+		this.autos4 = new Auto[5];
+		this.crearAutos(autos4);
+		this.posicionarAutos(autos4);
+		this.autos5 = new Auto[5];
+		this.crearAutos(autos5);
+		this.posicionarAutos(autos5);
+		this.autos6 = new Auto[5];
+		this.crearAutos(autos6);
+		this.posicionarAutos(autos6);
+		this.autos7 = new Auto[5];
+		this.crearAutos(autos7);
+		this.posicionarAutos(autos7);
+		this.autos8 = new Auto[5];
+		this.crearAutos(autos8);
+		this.posicionarAutos(autos8);
 		this.juegoTerminado=false;
 		this.puntosTotal=0;
 		this.saltos=0;
@@ -140,11 +142,12 @@ public class Juego extends InterfaceJuego
 		this.segRecargaKame=0;
 		this.centesimasRecargaRayo=0;
 		this.segRecargaRayo=0;
-		this.zanahorias=new Zanahorias();
+		
 		this.esperaMovConejo=false;
 		this.ZaWarudo=false;
 		this.centesimasActivoZaWarudo=0;
 		this.segActivoZaWarudo=0;
+		this.musicaReproducida=false;
 		this.entorno.iniciar();
 		//algo magico en tu vida
 	}
@@ -187,7 +190,7 @@ public class Juego extends InterfaceJuego
 			escribirPuntajeTotal();
 			escribirTiempoRecargaKame();
 			dispararRayoConversor();
-			zanahoriasActivas();
+			
 			comerZanahoria();
 			resetearZanahoria();
 			escribirTiempoRecargaRayo();
@@ -203,13 +206,19 @@ public class Juego extends InterfaceJuego
 		if(juegoTerminado) {
 			entorno.cambiarFont("Arial", 120, Color.WHITE);
 			entorno.escribirTexto("PERDISTE", entorno.ancho()/8, entorno.alto()/2);
-			//Herramientas.play("./resources/sonido/oof.wav"); // bugea todo xD
+			if(this.musicaReproducida==false) {
+				Herramientas.play("./resources/sonido/oof.wav");
+				this.musicaReproducida=true;
+			}
 			return true;
 		}
 		if(puntosTotal>=100) {
 			entorno.cambiarFont("Arial", 120, Color.WHITE);
 			entorno.escribirTexto("GANASTE", entorno.ancho()/8, entorno.alto()/2);
-			Herramientas.play("./resources/sonido/wins.wav");
+			if(this.musicaReproducida==false) {
+				Herramientas.play("./resources/sonido/wins.wav");
+				this.musicaReproducida=true;
+			}
 			return true;
 		}
 		return false;
@@ -223,15 +232,16 @@ public class Juego extends InterfaceJuego
 		carretera6.dibujar(entorno);
 		carretera7.dibujar(entorno);
 		carretera8.dibujar(entorno);
+		zanahoriasActivas();
 		conejo.dibujar(entorno);
-		autos1.dibujarAutos(entorno);
-		autos2.dibujarAutos(entorno);
-		autos3.dibujarAutos(entorno);
-		autos4.dibujarAutos(entorno);
-		autos5.dibujarAutos(entorno);
-		autos6.dibujarAutos(entorno);
-		autos7.dibujarAutos(entorno);
-		autos8.dibujarAutos(entorno);
+		this.dibujarAutos(autos1);
+		this.dibujarAutos(autos2);
+		this.dibujarAutos(autos3);
+		this.dibujarAutos(autos4);
+		this.dibujarAutos(autos5);
+		this.dibujarAutos(autos6);
+		this.dibujarAutos(autos7);
+		this.dibujarAutos(autos8);
 	}
 	private void establecerPosInicialConejo() {
 		conejo.setX(entorno.ancho()/2);
@@ -281,14 +291,14 @@ public class Juego extends InterfaceJuego
 		carretera6.avanzar();
 		carretera7.avanzar();
 		carretera8.avanzar();
-		autos1.avanzarAutosPorCarretera(carretera1, 1);
-		autos2.avanzarAutosPorCarretera(carretera2, 2);
-		autos3.avanzarAutosPorCarretera(carretera3, 1.5);
-		autos4.avanzarAutosPorCarretera(carretera4, 2.5);
-		autos5.avanzarAutosPorCarretera(carretera5, 1);
-		autos6.avanzarAutosPorCarretera(carretera6, 2.5);
-		autos7.avanzarAutosPorCarretera(carretera7, 0.5);
-		autos8.avanzarAutosPorCarretera(carretera8, 2);
+		this.avanzarAutosPorCarretera(autos1,carretera1, 1);
+		this.avanzarAutosPorCarretera(autos2,carretera2, 0.8);
+		this.avanzarAutosPorCarretera(autos3,carretera3, 0.4);
+		this.avanzarAutosPorCarretera(autos4,carretera4, 0.67);
+		this.avanzarAutosPorCarretera(autos5,carretera5, 1);
+		this.avanzarAutosPorCarretera(autos6,carretera6, 0.85);
+		this.avanzarAutosPorCarretera(autos7,carretera7, 0.5);
+		this.avanzarAutosPorCarretera(autos8,carretera8, 0.4);
 		}
 	}
 	public boolean verificarDesapareceCarretera(Carretera carretera) {
@@ -332,10 +342,10 @@ public class Juego extends InterfaceJuego
 			juegoTerminado=true;
 		}
 	}
-	private void atropellaConejo(Trafico autos) {
-		for(int i=0;i<autos.getAutos().length;i++) {
-			if(autos.getAutos()[i]!=null) {
-				if(colisionConejoAuto(autos.getAutos()[i])) {
+	private void atropellaConejo(Auto[] autos) {
+		for(int i=0;i<autos.length;i++) {
+			if(autos[i]!=null) {
+				if(colisionConejoAuto(autos[i])) {
 					juegoTerminado=true;
 				}
 			}
@@ -355,7 +365,7 @@ public class Juego extends InterfaceJuego
 			kamehamehaTiempoRecarga();
 			recargaKame=true;
 			centesimasRecargaKame=0;
-			segRecargaKame=3;
+			segRecargaKame=5;
 			Herramientas.play("./resources/sonido/kamehameha.wav");
 		}
 		if(kamehameha!=null) {
@@ -374,16 +384,16 @@ public class Juego extends InterfaceJuego
 		
 	}
 	private boolean colisionKamehamehaAuto(Auto auto) {
-		return kamehameha.getX() > auto.getX() - (kamehameha.getAncho()) &&
-				kamehameha.getX() < auto.getX() +(kamehameha.getAncho()) &&
+		return kamehameha.getX() > auto.getX() - (kamehameha.getAncho()*1.5) &&
+				kamehameha.getX() < auto.getX() +(kamehameha.getAncho()*1.5) &&
 				kamehameha.getY() > auto.getY() - (kamehameha.getAlto()/2) &&
 				kamehameha.getY() < auto.getY() + (kamehameha.getAlto()/1.5);
 	}
-	private void destruirAutoConKame(Trafico autos) {
-		for(int i=0;i<autos.getAutos().length;i++) {
-			if(autos.getAutos()[i]!=null && kamehameha!=null) {
-				if(colisionKamehamehaAuto(autos.getAutos()[i])) {
-					autos.getAutos()[i]=null;
+	private void destruirAutoConKame(Auto[] autos) {
+		for(int i=0;i<autos.length;i++) {
+			if(autos[i]!=null && kamehameha!=null) {
+				if(colisionKamehamehaAuto(autos[i])) {
+					autos[i]=null;
 					kamehameha=null;
 					puntosTotal+=5;
 					
@@ -393,7 +403,7 @@ public class Juego extends InterfaceJuego
 	}
 	
 	private void kamehamehaTiempoActivo() {
-		tiempoActivoKame=new Timer(3000,new ActionListener() {
+		tiempoActivoKame=new Timer(2500,new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -431,19 +441,19 @@ public class Juego extends InterfaceJuego
 	}
 	
 	
-	private void autoTocaLimite(Trafico autos, Carretera carretera) {
-		for (int i=0; i<autos.getAutos().length;i++) {
-			if(autos.getAutos()[i]!=null) {
-				resetearAuto(autos.getAutos()[i], carretera);
+	private void autoTocaLimite(Auto[] autos, Carretera carretera) {
+		for (int i=0; i<autos.length;i++) {
+			if(autos[i]!=null) {
+				resetearAuto(autos[i], carretera);
 			}
 		}
 	}
 	private void resetearAuto(Auto auto, Carretera carretera) {
 		if(carretera.getSentido().equals(Sentido.DERECHA) && auto.getX()>=entorno.ancho()+50) {
-			auto.setX(-50);
+			auto.setX(-100);
 		}
 		else if(carretera.getSentido().equals(Sentido.IZQUIERDA) && auto.getX()<=-50) {
-			auto.setX(entorno.ancho()+50);
+			auto.setX(entorno.ancho()+100);
 		}
 	}
 	private void escribirSaltos() {
@@ -459,8 +469,7 @@ public class Juego extends InterfaceJuego
 	private void dispararRayoConversor() {
 		if(entorno.sePresiono('r') && recargaRayo==false) {
 			rayoConversorZanahoria=conejo.disparararRayoConversor();
-			rayoConversorZanahoria.establecerPosX(conejo);
-			rayoConversorZanahoria.establecerPosY(conejo);
+			
 			recargaRayo=true;
 			rayoConvTiempoActivo();
 			rayoConvTiempoRecarga();
@@ -483,7 +492,7 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private void rayoConvTiempoActivo() {
-		tiempoActivoRayo=new Timer(4000,new ActionListener() {
+		tiempoActivoRayo=new Timer(2500,new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -495,7 +504,7 @@ public class Juego extends InterfaceJuego
 		tiempoActivoRayo.start();
 	}
 	private void rayoConvTiempoRecarga() {
-		tiempoRecargaRayo=new Timer(2000,new ActionListener() {
+		tiempoRecargaRayo=new Timer(4000,new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -512,26 +521,39 @@ public class Juego extends InterfaceJuego
 				rayoConversorZanahoria.getY() > auto.getY() - (rayoConversorZanahoria.getAlto()/2) &&
 				rayoConversorZanahoria.getY() < auto.getY() + (rayoConversorZanahoria.getAlto()/1.5);
 	}
-	private void convertirAutosEnZanahoria(Trafico autos) {
-		for(int i=0;i<autos.getAutos().length;i++) {
-			if(autos.getAutos()[i]!=null && rayoConversorZanahoria!=null) {
-				if(colisionRayoConversorAuto(autos.getAutos()[i])) {
-					Zanahoria zanahoria = new Zanahoria();
-					zanahoria.setX(autos.getAutos()[i].getX());
-					zanahoria.setY(autos.getAutos()[i].getY());
-					zanahorias.zanahorias.add(zanahoria);
-					autos.getAutos()[i]=null;
+	private void convertirAutosEnZanahoria(Auto[] autos) {
+		for(int i=0;i<autos.length;i++) {
+			if(autos[i]!=null && rayoConversorZanahoria!=null) {
+				if(colisionRayoConversorAuto(autos[i])) {
+					Zanahoria zanahoria = new Zanahoria(autos[i].getX(),autos[i].getY());
+					this.agregarZanahoria(zanahoria);
+					autos[i]=null;
 					rayoConversorZanahoria=null;
 				}
 			}
 		}
 	}
+	public void agregarZanahoria(Zanahoria zanahoria) {
+		if(zanahorias[14]!=null) {
+				for(int j=0;j<zanahorias.length;j++) {
+					zanahorias[j]=null;
+				}
+		}
+		for(int i=0;i<zanahorias.length;i++) {
+			
+			if (zanahorias[i]==null) {
+				zanahorias[i]=zanahoria;
+				break;
+			}
+			
+		}
+	}
 	public void zanahoriasActivas() {
-		for(int i=0;i<zanahorias.zanahorias.size();i++) {
-			if(zanahorias.zanahorias.get(i)!=null) {
-				zanahorias.zanahorias.get(i).dibujar(entorno);
+		for(int i=0;i<zanahorias.length;i++) {
+			if(zanahorias[i]!=null) {
+				zanahorias[i].dibujar(entorno);
 				if(!ZaWarudo) {
-				zanahorias.zanahorias.get(i).avanzar();
+				zanahorias[i].avanzar();
 				}
 			}
 		}
@@ -543,10 +565,10 @@ public class Juego extends InterfaceJuego
 				conejo.getY() < zanahoria.getY() + (conejo.getAlto()/2);
 	}
 	private void comerZanahoria() {
-		for(int i=0;i<zanahorias.zanahorias.size();i++) {
-			if(zanahorias.zanahorias.get(i)!=null) {
-				if(colisionConejoZanahoria(zanahorias.zanahorias.get(i))) {
-					zanahorias.zanahorias.remove(i);
+		for(int i=0;i<zanahorias.length;i++) {
+			if(zanahorias[i]!=null) {
+				if(colisionConejoZanahoria(zanahorias[i])) {
+					zanahorias[i]=null;
 					puntosTotal+=2;
 					Herramientas.play("./resources/sonido/zanahoria.wav");
 				}
@@ -554,10 +576,10 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private void resetearZanahoria() {
-		for(int i=0;i<zanahorias.zanahorias.size();i++) {
-			if(zanahorias.zanahorias.get(i)!=null) {
-				if(zanahorias.zanahorias.get(i).getY()>=entorno.alto()+50) {
-					zanahorias.zanahorias.get(i).setY(-50);
+		for(int i=0;i<zanahorias.length;i++) {
+			if(zanahorias[i]!=null) {
+				if(zanahorias[i].getY()>=entorno.alto()+50) {
+					zanahorias[i].setY(-50);
 				}
 			}
 		}
@@ -576,7 +598,7 @@ public class Juego extends InterfaceJuego
 		
 	}
 	private void tiempoEsperaMovConejo() {
-		tiempoEsperaMovConejo=new Timer(200,new ActionListener() {
+		tiempoEsperaMovConejo=new Timer(180,new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -620,4 +642,34 @@ public class Juego extends InterfaceJuego
 		}
 		
 	}
+	public void crearAutos(Auto autos[]) {
+		for(int i=0;i<autos.length;i++) {
+			Auto auto = new Auto();
+			autos[i] = auto;
+		}
+	}
+	public void posicionarAutos(Auto autos[]) {
+		int posX=0;
+		for(int i=0;i<autos.length;i++) {
+			if(autos[i]!=null) {
+				autos[i].setX(posX);
+				posX+=200;
+			}
+		}
+	}
+	public void avanzarAutosPorCarretera(Auto autos[],Carretera carretera,double velocidad) {
+		for(int i=0;i<autos.length;i++) {
+			if(autos[i]!=null) {
+				autos[i].avanzarPorCarretera(carretera, velocidad);
+			}
+		}
+	}
+	public void dibujarAutos(Auto autos[]) {
+		for(int i=0;i<autos.length;i++) {
+			if(autos[i]!=null) {
+				autos[i].dibujar(entorno);
+			}
+		}
+	}
+	
 }

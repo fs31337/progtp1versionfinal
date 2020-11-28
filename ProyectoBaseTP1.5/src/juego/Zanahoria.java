@@ -8,9 +8,9 @@ import entorno.Herramientas;
 public class Zanahoria {
 	private double x,y,ancho,alto;
 	private Image imagen;
-	public Zanahoria() {
-		this.x=20;
-		this.y=20;
+	public Zanahoria(double x, double y) {
+		this.x=x;
+		this.y=y;
 		this.ancho=20;
 		this.alto=20;
 		this.imagen=Herramientas.cargarImagen("./resources/carrot.png");

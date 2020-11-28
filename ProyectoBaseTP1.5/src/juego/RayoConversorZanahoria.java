@@ -7,9 +7,9 @@ import entorno.Herramientas;
 
 public class RayoConversorZanahoria {
 	private double x,y,ancho,alto;
-	public RayoConversorZanahoria() {
-		this.x=0;
-		this.y=0;
+	public RayoConversorZanahoria(double x, double y) {
+		this.x=x;
+		this.y=y;
 		this.alto=30;
 		this.ancho=30;
 	}

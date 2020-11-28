@@ -89,7 +89,7 @@ public class Conejo {
 		return kamehameha;
 	}
 	public RayoConversorZanahoria disparararRayoConversor() {
-		RayoConversorZanahoria rayoConversorZanahoria = new RayoConversorZanahoria();
+		RayoConversorZanahoria rayoConversorZanahoria = new RayoConversorZanahoria(this.x,this.y);
 		return rayoConversorZanahoria;
 	}
 }

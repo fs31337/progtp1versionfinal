@@ -9,7 +9,7 @@ public class Kamehameha {
 	
 	public Kamehameha(double x,double y) {
 		this.x=x;
-		this.y=y;
+		this.y=y-10;
 		this.ancho=30;
 		this.alto=30;
 	}
@@ -29,10 +29,11 @@ public class Kamehameha {
 		entorno.dibujarRectangulo(x, y, ancho, alto, 0, Color.cyan);
 	}
 	public void movimientoAtaque() {
-		this.y-=1.5;
+		this.alto+=1.5;
+		this.y-=(1.5)/2;
 	}
 	public void establecerPos(Conejo conejo) {
-		this.y=conejo.getY()-(alto/2);
+		this.y=conejo.getY()-(this.alto/2);
 		this.x=conejo.getX();
 	}
 }
