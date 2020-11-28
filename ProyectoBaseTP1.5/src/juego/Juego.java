@@ -41,7 +41,7 @@ public class Juego extends InterfaceJuego
 	private Auto[] autos7;
 	private Auto[] autos8;
 	
-	private Kamehameha kamehameha;
+	
 	private Kamehameha [] kames;
 	
 	
@@ -196,6 +196,8 @@ public class Juego extends InterfaceJuego
 			escribirTiempoRecargaRayo();
 			detenerTiempo();
 			escribirTiempoActivoZaWarudo();
+			destruirAutosConKames();
+			
 			
 		}
 		else {
@@ -360,7 +362,17 @@ public class Juego extends InterfaceJuego
 	
 	private void dispararKamehameha() {
 		if(entorno.sePresiono(entorno.TECLA_ESPACIO) && recargaKame==false) {
-			kamehameha=conejo.dispararKamehameha();
+			if(kames[4]!=null) {
+				for(int i=0;i<kames.length;i++) {
+					kames[i]=null;
+				}
+			}
+			for(int i=0;i<kames.length;i++) {
+				if(kames[i]==null) {
+					kames[i]=conejo.dispararKamehameha();
+					break;
+				}
+			}
 			kamehamehaTiempoActivo();
 			kamehamehaTiempoRecarga();
 			recargaKame=true;
@@ -368,22 +380,16 @@ public class Juego extends InterfaceJuego
 			segRecargaKame=5;
 			Herramientas.play("./resources/sonido/kamehameha.wav");
 		}
-		if(kamehameha!=null) {
-			//kamehameha.establecerPos(conejo); //ahora toma x e y de conejo
-			kamehameha.dibujar(entorno);
-			kamehameha.movimientoAtaque();  //solo se mueve para arriba como rayoconversordezanahorias
-			destruirAutoConKame(autos1);
-			destruirAutoConKame(autos2);	
-			destruirAutoConKame(autos3);	
-			destruirAutoConKame(autos4);	
-			destruirAutoConKame(autos5);	
-			destruirAutoConKame(autos6);	
-			destruirAutoConKame(autos7);	
-			destruirAutoConKame(autos8);	
+		for(int j=0;j<kames.length;j++) {
+			if(kames[j]!=null) {
+				kames[j].dibujar(entorno);
+				kames[j].movimientoAtaque();  //solo se mueve para arriba como rayoconversordezanahorias
+				
+			}
 		}
 		
 	}
-	private boolean colisionKamehamehaAuto(Auto auto) {
+	private boolean colisionKamehamehaAuto(Auto auto,Kamehameha kamehameha) {
 		return kamehameha.getX() > auto.getX() - (kamehameha.getAncho()*1.5) &&
 				kamehameha.getX() < auto.getX() +(kamehameha.getAncho()*1.5) &&
 				kamehameha.getY() > auto.getY() - (kamehameha.getAlto()/2) &&
@@ -391,13 +397,15 @@ public class Juego extends InterfaceJuego
 	}
 	private void destruirAutoConKame(Auto[] autos) {
 		for(int i=0;i<autos.length;i++) {
-			if(autos[i]!=null && kamehameha!=null) {
-				if(colisionKamehamehaAuto(autos[i])) {
-					autos[i]=null;
-					kamehameha=null;
-					puntosTotal+=5;
+			for(int j=0;j<kames.length;j++) {
+				if(autos[i]!=null && kames[j]!=null) {
+					if(colisionKamehamehaAuto(autos[i],kames[j])) {
+						autos[i]=null;
+						kames[j]=null;
+						puntosTotal+=5;
 					
 				}
+			}
 			}
 		}
 	}
@@ -407,7 +415,11 @@ public class Juego extends InterfaceJuego
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				kamehameha=null;
+				for(int i=0;i<kames.length;i++) {
+					if(kames[i]!=null) {
+					kames[i]=null;
+					}
+				}
 				tiempoActivoKame.stop();
 				
 			}
@@ -671,5 +683,14 @@ public class Juego extends InterfaceJuego
 			}
 		}
 	}
-	
+	private void destruirAutosConKames() {
+		destruirAutoConKame(autos1);
+		destruirAutoConKame(autos2);	
+		destruirAutoConKame(autos3);	
+		destruirAutoConKame(autos4);	
+		destruirAutoConKame(autos5);	
+		destruirAutoConKame(autos6);	
+		destruirAutoConKame(autos7);	
+		destruirAutoConKame(autos8);
+	}
 }
