@@ -529,8 +529,8 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private boolean colisionConejoZanahoria(Zanahoria zanahoria) {
-		return conejo.getX() > zanahoria.getX() - (conejo.getAncho()/2) &&
-				conejo.getX() < zanahoria.getX() +(conejo.getAncho()/2) &&
+		return conejo.getX() > zanahoria.getX() - (conejo.getAncho()/1.5) &&
+				conejo.getX() < zanahoria.getX() +(conejo.getAncho()/1.5) &&
 				conejo.getY() > zanahoria.getY() - (conejo.getAlto()/1.5) &&
 				conejo.getY() < zanahoria.getY() + (conejo.getAlto()/1.5);
 	}	
