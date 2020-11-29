@@ -10,16 +10,11 @@ import juego.Carretera.Sentido;
 public class Auto {
 	private double x,y,ancho,alto,angulo;
 	private Image imagen;
-	private Image auto1;
-	private Image auto2;
-	private Image auto3;
-	private Image auto4;
-	private Image auto5;
 	private Image[] autos;
 	
 	public Auto() {
 		this.x=0;
-		this.y=0;
+		this.y=-200;
 		this.ancho=30;
 		this.alto=30;
 		cargarImagenes();
@@ -68,16 +63,16 @@ public class Auto {
 	
 	private void cargarImagenes() {
 		try {
-			this.auto1 = Herramientas.cargarImagen("./resources/cars/red.png");
-			this.auto2 = Herramientas.cargarImagen("./resources/cars/lightblue.png");
-			this.auto3 = Herramientas.cargarImagen("./resources/cars/yellow.png");
-			this.auto4 = Herramientas.cargarImagen("./resources/cars/pink.png");
-			this.auto5 = Herramientas.cargarImagen("./resources/cars/green.png");
+			Image auto1 = Herramientas.cargarImagen("./resources/cars/red.png");
+			Image auto2 = Herramientas.cargarImagen("./resources/cars/lightblue.png");
+			Image auto3 = Herramientas.cargarImagen("./resources/cars/yellow.png");
+			Image auto4 = Herramientas.cargarImagen("./resources/cars/pink.png");
+			Image auto5 = Herramientas.cargarImagen("./resources/cars/green.png");
+			autos = new Image[] {auto1,auto2,auto3,auto4,auto5};
 			}		
 		catch (Exception e){
 			e.printStackTrace(System.err);
 		}
-		autos = new Image[] {auto1,auto2,auto3,auto4,auto5};
 	}
 	
 	private int nRandom() {

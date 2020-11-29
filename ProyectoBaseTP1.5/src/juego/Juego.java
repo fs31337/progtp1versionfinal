@@ -19,7 +19,7 @@ public class Juego extends InterfaceJuego
 	private Entorno entorno;
 	public static final String TITULO ="Boss Rabbit Rabber - Grupo 6 - v1";
 	
-	Fondo fondo;
+	private Fondo fondo;
 	
 	private Conejo conejo;
 	
@@ -40,6 +40,8 @@ public class Juego extends InterfaceJuego
 	private Auto[] autos6;
 	private Auto[] autos7;
 	private Auto[] autos8;
+	
+	private Tren tren;
 	
 	
 	private Kamehameha [] kames;
@@ -109,6 +111,8 @@ public class Juego extends InterfaceJuego
 		this.carretera8.establecerPos(entorno,470);
 		this.carretera8.establecerSentido(Sentido.IZQUIERDA);		
 		
+		this.tren = new Tren();
+		
 		this.autos1 = new Auto[5];
 		this.crearAutos(autos1);
 		this.posicionarAutos(autos1);
@@ -133,6 +137,7 @@ public class Juego extends InterfaceJuego
 		this.autos8 = new Auto[5];
 		this.crearAutos(autos8);
 		this.posicionarAutos(autos8);
+		
 		this.juegoTerminado=false;
 		this.puntosTotal=0;
 		this.saltos=0;
@@ -169,6 +174,7 @@ public class Juego extends InterfaceJuego
 			atropellaConejo(autos6);
 			atropellaConejo(autos7);
 			atropellaConejo(autos8);
+			resetearCantAutos();
 			resetearCarreteraDesaparece(carretera1);
 			resetearCarreteraDesaparece(carretera2);
 			resetearCarreteraDesaparece(carretera3);
@@ -195,9 +201,8 @@ public class Juego extends InterfaceJuego
 			escribirTiempoRecargaRayo();
 			detenerTiempo();
 			escribirTiempoActivoZaWarudo();
-			destruirAutosConKames();
-			
-			
+			destruirAutosConKames();	
+			resetearTren();
 		}
 		else {
 			juegoTerminado();
@@ -234,6 +239,7 @@ public class Juego extends InterfaceJuego
 		carretera6.dibujar(entorno);
 		carretera7.dibujar(entorno);
 		carretera8.dibujar(entorno);
+		tren.dibujar(entorno);
 		zanahoriasActivas();
 		conejo.dibujar(entorno);
 		this.dibujarAutos(autos1);
@@ -327,6 +333,8 @@ public class Juego extends InterfaceJuego
 		if(!ZaWarudo) {
 		conejo.avanzar();
 		fondo.avanzar();
+		tren.avanzar();
+		tren.avanzarPorVia();
 		carretera1.avanzar();
 		carretera2.avanzar();
 		carretera3.avanzar();
@@ -683,6 +691,49 @@ public class Juego extends InterfaceJuego
 	private void resetearCarreteraDesaparece(Carretera carretera) {
 		if(verificarDesapareceCarretera(carretera)) {
 			carretera.setY(-50);
+		}
+	}
+	private void resetearCantAutos() {
+		if(verificarDesapareceCarretera(carretera1)) {
+			this.crearAutos(autos1);
+			this.posicionarAutos(autos1);			
+		}
+		if(verificarDesapareceCarretera(carretera2)) {
+			this.crearAutos(autos2);
+			this.posicionarAutos(autos2);			
+		}
+		if(verificarDesapareceCarretera(carretera3)) {
+			this.crearAutos(autos3);
+			this.posicionarAutos(autos3);			
+		}
+		if(verificarDesapareceCarretera(carretera4)) {
+			this.crearAutos(autos4);
+			this.posicionarAutos(autos4);			
+		}
+		if(verificarDesapareceCarretera(carretera5)) {
+			this.crearAutos(autos5);
+			this.posicionarAutos(autos5);			
+		}
+		if(verificarDesapareceCarretera(carretera6)) {
+			this.crearAutos(autos6);
+			this.posicionarAutos(autos6);			
+		}
+		if(verificarDesapareceCarretera(carretera7)) {
+			this.crearAutos(autos7);
+			this.posicionarAutos(autos7);			
+		}
+		if(verificarDesapareceCarretera(carretera8)) {
+			this.crearAutos(autos8);
+			this.posicionarAutos(autos8);			
+		}
+	}
+	
+	private void resetearTren() {
+		if(tren.getX()>=entorno.ancho()+5500) {
+			tren.setX(-300);
+		}
+		if(tren.getY()>=entorno.alto()+50) {
+			tren.setY(-100);
 		}
 	}
 	
