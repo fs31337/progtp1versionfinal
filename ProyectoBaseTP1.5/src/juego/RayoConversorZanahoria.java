@@ -28,7 +28,7 @@ public class RayoConversorZanahoria {
 	public void dibujar(Entorno entorno) {
 		entorno.dibujarRectangulo(x, y, ancho, alto, Herramientas.radianes(270), Color.orange);
 	}
-	public void movimietoAtaque() {
+	public void movimientoAtaque() {
 		this.y-=1.5;
 	}
 	public void establecerPosX(Conejo conejo) {

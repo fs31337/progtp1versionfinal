@@ -11,12 +11,12 @@ public class Tren {
 	private double x,y,ancho,alto,angulo,velocidad;
 	private Image imagen;
 	
-	public Tren() {
-		this.x=-300;
-		this.y=170;
-		this.ancho=600;
-		this.alto=60;
-		this.velocidad=5;
+	public Tren(double x, double y, double ancho, double alto, double velocidad) {
+		this.x=x;
+		this.y=y;
+		this.ancho=ancho;
+		this.alto=alto;
+		this.velocidad=velocidad;
 		//cargarImagenes();
 		
 	}
@@ -42,15 +42,13 @@ public class Tren {
 		//entorno.dibujarImagen(imagen, x, y, angulo, 0.7);
 		entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, angulo, Color.blue);
 	}
-	public void avanzar() {	
-			this.y+=0.2;
-			//this.angulo = 1.57;		
-	}
-	public void avanzarPorVia() {
+	
+	public void avanzarPorVia(Via via) {
 		this.x+=velocidad;
+		this.y=via.getY();
 	}
 	
-	public void detener(double y,double velocidad) {
+	public void detener(double y) {
 		this.y=y;
 		this.x-=velocidad;	
 	}
