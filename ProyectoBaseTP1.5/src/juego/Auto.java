@@ -1,6 +1,5 @@
 package juego;
 
-import java.awt.Color;
 import java.awt.Image;
 import java.util.Random;
 
@@ -50,7 +49,7 @@ public class Auto {
 		}
 		
 	}
-	public void detenerPorCarretera(Carretera carretera, double velocidad) {
+	/*public void detenerPorCarretera(Carretera carretera, double velocidad) {
 		this.y=carretera.getY();
 		if(carretera.getSentido().equals(Sentido.DERECHA)) {
 			this.x-=velocidad;
@@ -59,7 +58,7 @@ public class Auto {
 			this.x+=velocidad;
 		}
 		
-	}
+	}*/
 	
 	private void cargarImagenes() {
 		try {

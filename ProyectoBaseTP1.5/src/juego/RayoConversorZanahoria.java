@@ -1,6 +1,5 @@
 package juego;
 
-import java.awt.Color;
 import java.awt.Image;
 
 import entorno.Entorno;
@@ -30,7 +29,7 @@ public class RayoConversorZanahoria {
 		return this.alto;
 	}
 	public void dibujar(Entorno entorno) {
-		entorno.dibujarImagen(imagen, x, y, 0, 0.05);
+		entorno.dibujarImagen(imagen, x, y, 0, 0.04);
 		}
 	public void movimientoAtaque() {
 		this.y-=1.5;

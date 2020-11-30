@@ -7,14 +7,15 @@ import entorno.Entorno;
 import entorno.Herramientas;
 
 public class Kamehameha {
-	private double x,y,ancho,alto;
+	private double x,y,ancho,alto,scale;
 	private Image imagen;
 	
 	public Kamehameha(double x,double y) {
 		this.x=x;
 		this.y=y-10;
 		this.ancho=30;
-		this.alto=30;
+		this.alto=0;//30 original
+		this.scale=0.1;
 		this.imagen = Herramientas.cargarImagen("./resources/spells/kamehameha.png");
 	}
 	public double getX() {
@@ -31,11 +32,12 @@ public class Kamehameha {
 	}
 	public void dibujar(Entorno entorno) {
 		//entorno.dibujarRectangulo(x, y, ancho, alto, 0, Color.cyan);
-		entorno.dibujarImagen(imagen, x, y, 4.7, 1);
+		entorno.dibujarImagen(imagen, x, y, 4.7, scale);
 	}
 	public void movimientoAtaque() {
+		this.scale+=0.009;
 		this.alto+=1.5;
-		this.y-=(1.5)/2;
+		this.y-=(2)/2;
 	}
 	public void establecerPos(Conejo conejo) {
 		this.y=conejo.getY()-(this.alto/2);

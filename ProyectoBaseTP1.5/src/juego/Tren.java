@@ -1,11 +1,8 @@
 package juego;
 
-import java.awt.Color;
 import java.awt.Image;
-import java.util.Random;
 
 import entorno.*;
-import juego.Carretera.Sentido;
 
 public class Tren {
 	private double x,y,ancho,alto,angulo,velocidad;

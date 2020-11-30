@@ -1,6 +1,5 @@
 package juego;
 
-import java.awt.Color;
 import java.awt.Image;
 
 import entorno.*;
@@ -20,7 +19,7 @@ public class Conejo {
 		imagen = imgconejos[0];  //imagen inicial
 		
 	}
-	//Getters {
+	
 	public double getX() {
 		return this.x;
 	}
@@ -36,9 +35,9 @@ public class Conejo {
 	public double getVelocidad() {
 		return this.velocidad;
 	}
-	// } Getters
 	
-	// Setters {
+	
+	
 	public void setX(double x) {
 		this.x=x;
 	}
@@ -51,7 +50,7 @@ public class Conejo {
 	public void setAlto(double alto) {
 		this.alto=alto;
 	}
-	// } Setters
+	
 	
 	public void dibujar(Entorno entorno) {
 		entorno.dibujarImagen(imagen, x, y, 0);

@@ -8,6 +8,7 @@ import entorno.Herramientas;
 public class Zanahoria {
 	private double x,y,ancho,alto;
 	private Image imagen;
+	
 	public Zanahoria(double x, double y) {
 		this.x=x;
 		this.y=y;

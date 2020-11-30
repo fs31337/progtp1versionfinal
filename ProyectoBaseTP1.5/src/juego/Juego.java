@@ -42,15 +42,12 @@ public class Juego extends InterfaceJuego
 	private Auto[] autos8;
 	
 	private Via via;
-	private Tren tren;
+	private Tren tren;	
 	
-	
-	private Kamehameha [] kames;
-	
+	private Kamehameha [] kames;	
 	
 	private Zanahoria[] zanahorias;
-	private RayoConversorZanahoria rayoConversorZanahoria[];
-	
+	private RayoConversorZanahoria rayoConversorZanahoria[];	
 	
 	private boolean juegoTerminado;
 	private int puntosTotal, saltos;
@@ -757,23 +754,7 @@ public class Juego extends InterfaceJuego
 			this.posicionarAutos(autos8);			
 		}
 	}
-	
-	private void resetearTren() {
-		if(tren.getX()>=entorno.ancho()+5500) {
-			tren.setX(-300);
-		}
-		if(tren.getY()>=entorno.alto()+50) {
-			tren.setY(-100);
-		}
-	}
-	private void resetearVia() {
-		if(via.getY()>=entorno.alto()+50) {
-			via.setY(-50);
-		}
-	}
-	
-	
-														//Puntajes
+															//Puntajes
 	private void escribirSaltos() {
 		entorno.cambiarFont("Arial Black", 20, Color.white);
 		entorno.escribirTexto("Saltos: "+ saltos, 150, 20);
@@ -782,6 +763,10 @@ public class Juego extends InterfaceJuego
 		entorno.cambiarFont("Arial Black", 20, Color.white);
 		entorno.escribirTexto("Puntos: "+ puntosTotal, 20, 20);
 	}
+	
+	
+	
+														//Tren
 	private boolean colisionConejoTren() {
 		return tren.getX() > conejo.getX() - (tren.getAncho()/2) &&
 				tren.getX() < conejo.getX() +(tren.getAncho()/2) &&
@@ -821,6 +806,19 @@ public class Juego extends InterfaceJuego
 					rayoConversorZanahoria[i]=null;
 				}
 			}
+		}
+	}
+	private void resetearTren() {
+		if(tren.getX()>=entorno.ancho()+5500) {
+			tren.setX(-300);
+		}
+		if(tren.getY()>=entorno.alto()+50) {
+			tren.setY(-100);
+		}
+	}
+	private void resetearVia() {
+		if(via.getY()>=entorno.alto()+50) {
+			via.setY(-50);
 		}
 	}
 }
