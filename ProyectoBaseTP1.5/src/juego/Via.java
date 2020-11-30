@@ -16,6 +16,7 @@ public class Via {
 		this.y=y;
 		this.ancho=ancho;
 		this.alto=70;
+		this.imagen = Herramientas.cargarImagen("./resources/tren/via1.png");
 	}
 	public double getY() {
 		return this.y;
@@ -24,24 +25,12 @@ public class Via {
 		this.y=y;
 	}
 	public void dibujar(Entorno entorno) {
-		//entorno.dibujarImagen(imagen, x, y, 0,0.6);
-		entorno.dibujarRectangulo(x, y, ancho, alto, angulo, Color.gray);
+		entorno.dibujarImagen(imagen, x, y, 0,0.6);
 	}
 	public void avanzar() {
 		this.y+=0.2;
 	}
 	public void detener() {
 		this.y+=0.2;
-	}
-
-	private void cargarImagenes() {
-		try {
-				
-				//Agregar imagenes
-			
-			}		
-		catch (Exception e){
-			e.printStackTrace(System.err);
-		}
 	}
 }

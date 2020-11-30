@@ -17,7 +17,7 @@ public class Tren {
 		this.ancho=ancho;
 		this.alto=alto;
 		this.velocidad=velocidad;
-		//cargarImagenes();
+		this.imagen = Herramientas.cargarImagen("./resources/tren/tren.png");
 		
 	}
 	public double getX() {
@@ -39,8 +39,7 @@ public class Tren {
 		this.y=y;
 	}
 	public void dibujar(Entorno entorno) {
-		//entorno.dibujarImagen(imagen, x, y, angulo, 0.7);
-		entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, angulo, Color.blue);
+		entorno.dibujarImagen(imagen, x, y, angulo, 0.7);
 	}
 	
 	public void avanzarPorVia(Via via) {
@@ -53,14 +52,4 @@ public class Tren {
 		this.x-=velocidad;	
 	}
 	
-	private void cargarImagenes() {
-		try {
-			Image tren = Herramientas.cargarImagen("./resources/tren/tren.png");		
-			}		
-		catch (Exception e){
-			e.printStackTrace(System.err);
-		}
-	}
-
-
 }

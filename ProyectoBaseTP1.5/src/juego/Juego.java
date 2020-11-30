@@ -116,7 +116,7 @@ public class Juego extends InterfaceJuego
 		this.carretera8.establecerSentido(Sentido.IZQUIERDA);		
 		
 		this.via = new Via(entorno.ancho()/2,170,entorno.ancho());
-		this.tren = new Tren(-300,via.getY(),600,60,5);
+		this.tren = new Tren(-300,via.getY(),500,60,5);
 		
 		this.autos1 = new Auto[5];
 		this.crearAutos(autos1);
