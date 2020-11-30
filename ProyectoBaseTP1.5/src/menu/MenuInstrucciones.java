@@ -24,6 +24,11 @@ public class MenuInstrucciones extends javax.swing.JDialog {
 
         etiquetaInstrucciones.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         etiquetaInstrucciones.setText("-Instruccioes a desarrollar:");
+        etiquetaInstrucciones.setText("<html>.'WASD' O 'Flechas' para moverse<br />'R' para disparar el rayo conversor<br />'Z' para detener el tiempo<br />'Barra Espaciadora' para kamehameha</html>");
+        
+        
+        
+        
         etiquetaInstrucciones.setForeground(java.awt.Color.WHITE);
         
         botonEntendido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
