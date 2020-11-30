@@ -1,17 +1,21 @@
 package juego;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import entorno.Entorno;
 import entorno.Herramientas;
 
 public class RayoConversorZanahoria {
 	private double x,y,ancho,alto;
+	private Image imagen;
+	
 	public RayoConversorZanahoria(double x, double y) {
 		this.x=x;
 		this.y=y;
 		this.alto=30;
 		this.ancho=30;
+		this.imagen=Herramientas.cargarImagen("./resources/spells/conversorzanahoria4.png");
 	}
 	public double getX() {
 		return this.x;
@@ -26,8 +30,8 @@ public class RayoConversorZanahoria {
 		return this.alto;
 	}
 	public void dibujar(Entorno entorno) {
-		entorno.dibujarRectangulo(x, y, ancho, alto, Herramientas.radianes(270), Color.orange);
-	}
+		entorno.dibujarImagen(imagen, x, y, 0, 0.05);
+		}
 	public void movimientoAtaque() {
 		this.y-=1.5;
 	}

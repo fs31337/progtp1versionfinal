@@ -209,6 +209,7 @@ public class Juego extends InterfaceJuego
 			destruirAutosConKames();
 			convertirAutosEnZanahoria();
 			resetearTren();
+			resetearVia();
 			trenAtropellaConejo();
 			trenDetieneKame();
 			trenDetieneRayo();
@@ -763,6 +764,11 @@ public class Juego extends InterfaceJuego
 		}
 		if(tren.getY()>=entorno.alto()+50) {
 			tren.setY(-100);
+		}
+	}
+	private void resetearVia() {
+		if(via.getY()>=entorno.alto()+50) {
+			via.setY(-50);
 		}
 	}
 	
