@@ -113,7 +113,7 @@ public class Juego extends InterfaceJuego
 		this.carretera8.establecerSentido(Sentido.IZQUIERDA);		
 		
 		this.via = new Via(entorno.ancho()/2,170,entorno.ancho());
-		this.tren = new Tren(-300,via.getY(),500,60,5);
+		this.tren = new Tren(-300,via.obtenerY(),500,60,5);
 		
 		this.autos1 = new Auto[5];
 		this.crearAutos(autos1);
@@ -261,8 +261,8 @@ public class Juego extends InterfaceJuego
 	}
 													//Conejo
 	private void establecerPosInicialConejo() {
-		conejo.setX(entorno.ancho()/2);
-		conejo.setY((entorno.alto()/2)+200);
+		conejo.asignarX(entorno.ancho()/2);
+		conejo.asignarY((entorno.alto()/2)+200);
 	}
 	
 	private void movimientoConejo() {
@@ -308,25 +308,25 @@ public class Juego extends InterfaceJuego
 		tiempoEsperaMovConejo.start();
 	}
 	private boolean conejoTocaLimiteDerecho() {
-		if(conejo.getX()>=entorno.ancho()) {
+		if(conejo.obtenerX()>=entorno.ancho()) {
 			return true;
 		}
 		return false;
 	}
 	private boolean conejoTocaLimiteIzquierdo() {
-		if(conejo.getX()<=0) {
+		if(conejo.obtenerX()<=0) {
 			return true;
 		}
 		return false;
 	}
 	private boolean conejoTocaLimiteSuperior() {
-		if(conejo.getY()<100) {
+		if(conejo.obtenerY()<100) {
 			return true;
 		}
 		return false;
 	}
 	private boolean conejoTocaLimiteInferior() {
-		if(conejo.getY()>=entorno.alto()+50) {
+		if(conejo.obtenerY()>=entorno.alto()+50) {
 			return true;
 		}
 		return false;
@@ -363,8 +363,8 @@ public class Juego extends InterfaceJuego
 	}
 	
 	private void resetearFondo() {
-		if(this.fondo.getY()>=entorno.alto()-200) {
-			this.fondo.setY(200);;
+		if(this.fondo.obtenerY()>=entorno.alto()-200) {
+			this.fondo.asignarY(200);;
 		}
 	}
 																//Kamehameha
@@ -397,10 +397,10 @@ public class Juego extends InterfaceJuego
 		}		
 	}
 	private boolean colisionKamehamehaAuto(Auto auto,Kamehameha kamehameha) {
-		return kamehameha.getX() > auto.getX() - (kamehameha.getAncho()*1.5) &&
-				kamehameha.getX() < auto.getX() +(kamehameha.getAncho()*1.5) &&
-				kamehameha.getY() > auto.getY() - (kamehameha.getAlto()/2) &&
-				kamehameha.getY() < auto.getY() + (kamehameha.getAlto()/1.5);
+		return kamehameha.obtenerX() > auto.obtenerX() - (kamehameha.obtenerAncho()*1.5) &&
+				kamehameha.obtenerX() < auto.obtenerX() +(kamehameha.obtenerAncho()*1.5) &&
+				kamehameha.obtenerY() > auto.obtenerY() - (kamehameha.obtenerAlto()/2) &&
+				kamehameha.obtenerY() < auto.obtenerY() + (kamehameha.obtenerAlto()/1.5);
 	}
 	private void destruirAutoConKame(Auto[] autos) {
 		for(int i=0;i<autos.length;i++) {
@@ -510,17 +510,17 @@ public class Juego extends InterfaceJuego
 		tiempoRecargaRayo.start();
 	}
 	private boolean colisionRayoConversorAuto(Auto auto, RayoConversorZanahoria rayoConversorZanahoria) {
-		return rayoConversorZanahoria.getX() > auto.getX() - (rayoConversorZanahoria.getAncho()) &&
-				rayoConversorZanahoria.getX() < auto.getX() +(rayoConversorZanahoria.getAncho()) &&
-				rayoConversorZanahoria.getY() > auto.getY() - (rayoConversorZanahoria.getAlto()/2) &&
-				rayoConversorZanahoria.getY() < auto.getY() + (rayoConversorZanahoria.getAlto()/1.5);
+		return rayoConversorZanahoria.obtenerX() > auto.obtenerX() - (rayoConversorZanahoria.obtenerAncho()) &&
+				rayoConversorZanahoria.obtenerX() < auto.obtenerX() +(rayoConversorZanahoria.obtenerAncho()) &&
+				rayoConversorZanahoria.obtenerY() > auto.obtenerY() - (rayoConversorZanahoria.obtenerAlto()/2) &&
+				rayoConversorZanahoria.obtenerY() < auto.obtenerY() + (rayoConversorZanahoria.obtenerAlto()/1.5);
 	}
 	private void convertirAutosEnZanahoria(Auto[] autos) {
 		for(int i=0;i<autos.length;i++) {
 			for (int j=0;j<rayoConversorZanahoria.length;j++) {
 				if(autos[i]!=null && rayoConversorZanahoria[j]!=null) {
 					if(colisionRayoConversorAuto(autos[i],rayoConversorZanahoria[j])) {
-						Zanahoria zanahoria = new Zanahoria(autos[i].getX(),autos[i].getY());
+						Zanahoria zanahoria = new Zanahoria(autos[i].obtenerX(),autos[i].obtenerY());
 						this.agregarZanahoria(zanahoria);
 						autos[i]=null;
 						rayoConversorZanahoria[j]=null;
@@ -555,10 +555,10 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private boolean colisionConejoZanahoria(Zanahoria zanahoria) {
-		return conejo.getX() > zanahoria.getX() - (conejo.getAncho()/1.5) &&
-				conejo.getX() < zanahoria.getX() +(conejo.getAncho()/1.5) &&
-				conejo.getY() > zanahoria.getY() - (conejo.getAlto()/1.5) &&
-				conejo.getY() < zanahoria.getY() + (conejo.getAlto()/1.5);
+		return conejo.obtenerX() > zanahoria.obtenerX() - (conejo.obtenerAncho()/1.5) &&
+				conejo.obtenerX() < zanahoria.obtenerX() +(conejo.obtenerAncho()/1.5) &&
+				conejo.obtenerY() > zanahoria.obtenerY() - (conejo.obtenerAlto()/1.5) &&
+				conejo.obtenerY() < zanahoria.obtenerY() + (conejo.obtenerAlto()/1.5);
 	}	
 	private void comerZanahoria() {
 		for(int i=0;i<zanahorias.length;i++) {
@@ -574,8 +574,8 @@ public class Juego extends InterfaceJuego
 	private void resetearZanahoria() {
 		for(int i=0;i<zanahorias.length;i++) {
 			if(zanahorias[i]!=null) {
-				if(zanahorias[i].getY()>=entorno.alto()+50) {
-					zanahorias[i].setY(-50);
+				if(zanahorias[i].obtenerY()>=entorno.alto()+50) {
+					zanahorias[i].asignarY(-50);
 				}
 			}
 		}		
@@ -638,7 +638,7 @@ public class Juego extends InterfaceJuego
 		int posX=0;
 		for(int i=0;i<autos.length;i++) {
 			if(autos[i]!=null) {
-				autos[i].setX(posX);
+				autos[i].asignarX(posX);
 				posX+=200;
 			}
 		}
@@ -685,11 +685,11 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private void resetearAuto(Auto auto, Carretera carretera) {
-		if(carretera.getSentido().equals(Sentido.DERECHA) && auto.getX()>=entorno.ancho()+50) {
-			auto.setX(-100);
+		if(carretera.obtenerSentido().equals(Sentido.DERECHA) && auto.obtenerX()>=entorno.ancho()+50) {
+			auto.asignarX(-100);
 		}
-		else if(carretera.getSentido().equals(Sentido.IZQUIERDA) && auto.getX()<=-50) {
-			auto.setX(entorno.ancho()+100);
+		else if(carretera.obtenerSentido().equals(Sentido.IZQUIERDA) && auto.obtenerX()<=-50) {
+			auto.asignarX(entorno.ancho()+100);
 		}
 	}
 	private void atropellaConejo(Auto[] autos) {
@@ -702,22 +702,22 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private boolean colisionConejoAuto(Auto auto) {
-		return conejo.getX() > auto.getX() - (conejo.getAncho()/0.9) &&
-				conejo.getX() < auto.getX() +(conejo.getAncho()/0.9) &&
-				conejo.getY() > auto.getY() - (conejo.getAlto()/1.5) &&
-				conejo.getY() < auto.getY() + (conejo.getAlto()/1.5);
+		return conejo.obtenerX() > auto.obtenerX() - (conejo.obtenerAncho()/0.9) &&
+				conejo.obtenerX() < auto.obtenerX() +(conejo.obtenerAncho()/0.9) &&
+				conejo.obtenerY() > auto.obtenerY() - (conejo.obtenerAlto()/1.5) &&
+				conejo.obtenerY() < auto.obtenerY() + (conejo.obtenerAlto()/1.5);
 	}
 																//Carreteras
 	
 	public boolean verificarDesapareceCarretera(Carretera carretera) {
-		if(carretera.getY()>=entorno.alto()+50) {
+		if(carretera.obtenerY()>=entorno.alto()+50) {
 			return true;
 		}
 		return false;
 	}
 	private void resetearCarreteraDesaparece(Carretera carretera) {
 		if(verificarDesapareceCarretera(carretera)) {
-			carretera.setY(-50);
+			carretera.asignarY(-50);
 		}
 	}
 	private void resetearCantAutos() {
@@ -768,10 +768,10 @@ public class Juego extends InterfaceJuego
 	
 														//Tren
 	private boolean colisionConejoTren() {
-		return tren.getX() > conejo.getX() - (tren.getAncho()/2) &&
-				tren.getX() < conejo.getX() +(tren.getAncho()/2) &&
-				tren.getY() > conejo.getY() - (tren.getAlto()/2) &&
-				tren.getY() < conejo.getY() + (tren.getAlto()/2);
+		return tren.obtenerX() > conejo.obtenerX() - (tren.obtenerAncho()/2) &&
+				tren.obtenerX() < conejo.obtenerX() +(tren.obtenerAncho()/2) &&
+				tren.obtenerY() > conejo.obtenerY() - (tren.obtenerAlto()/2) &&
+				tren.obtenerY() < conejo.obtenerY() + (tren.obtenerAlto()/2);
 	}
 	private void trenAtropellaConejo() {
 		if(colisionConejoTren()) {
@@ -779,10 +779,10 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private boolean colisionKamehamehaTren(Kamehameha kamehameha) {
-		return kamehameha.getX() > tren.getX() - (kamehameha.getAncho()*10) &&
-				kamehameha.getX() < tren.getX() +(kamehameha.getAncho()*10) &&
-				kamehameha.getY() > tren.getY() - (kamehameha.getAlto()) &&
-				kamehameha.getY() < tren.getY() + (kamehameha.getAlto());
+		return kamehameha.obtenerX() > tren.obtenerX() - (kamehameha.obtenerAncho()*10) &&
+				kamehameha.obtenerX() < tren.obtenerX() +(kamehameha.obtenerAncho()*10) &&
+				kamehameha.obtenerY() > tren.obtenerY() - (kamehameha.obtenerAlto()) &&
+				kamehameha.obtenerY() < tren.obtenerY() + (kamehameha.obtenerAlto());
 	}
 	private void trenDetieneKame() {
 		for(int i=0;i<kames.length;i++) {
@@ -794,10 +794,10 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private boolean colisionRayoTren(RayoConversorZanahoria rayoConversorZanahoria) {
-		return rayoConversorZanahoria.getX() > tren.getX() - (rayoConversorZanahoria.getAncho()*10) &&
-				rayoConversorZanahoria.getX() < tren.getX() +(rayoConversorZanahoria.getAncho()*10) &&
-				rayoConversorZanahoria.getY() > tren.getY() - (rayoConversorZanahoria.getAlto()) &&
-				rayoConversorZanahoria.getY() < tren.getY() + (rayoConversorZanahoria.getAlto());
+		return rayoConversorZanahoria.obtenerX() > tren.obtenerX() - (rayoConversorZanahoria.obtenerAncho()*10) &&
+				rayoConversorZanahoria.obtenerX() < tren.obtenerX() +(rayoConversorZanahoria.obtenerAncho()*10) &&
+				rayoConversorZanahoria.obtenerY() > tren.obtenerY() - (rayoConversorZanahoria.obtenerAlto()) &&
+				rayoConversorZanahoria.obtenerY() < tren.obtenerY() + (rayoConversorZanahoria.obtenerAlto());
 	}
 	private void trenDetieneRayo() {
 		for(int i=0;i<rayoConversorZanahoria.length;i++) {
@@ -809,16 +809,16 @@ public class Juego extends InterfaceJuego
 		}
 	}
 	private void resetearTren() {
-		if(tren.getX()>=entorno.ancho()+5500) {
-			tren.setX(-300);
+		if(tren.obtenerX()>=entorno.ancho()+5500) {
+			tren.asignarX(-300);
 		}
-		if(tren.getY()>=entorno.alto()+50) {
-			tren.setY(-100);
+		if(tren.obtenerY()>=entorno.alto()+50) {
+			tren.asignarY(-100);
 		}
 	}
 	private void resetearVia() {
-		if(via.getY()>=entorno.alto()+50) {
-			via.setY(-50);
+		if(via.obtenerY()>=entorno.alto()+50) {
+			via.asignarY(-50);
 		}
 	}
 }

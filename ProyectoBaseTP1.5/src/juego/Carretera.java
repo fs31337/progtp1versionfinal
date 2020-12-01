@@ -22,13 +22,13 @@ public class Carretera {
 		cargarImagenes();
 		this.imagen = calles[imagen-1];
 	}
-	public double getY() {
+	public double obtenerY() { //getY
 		return this.y;
 	}
-	public void setY(double y) {
+	public void asignarY(double y) {   //setY
 		this.y=y;
 	}
-	public Sentido getSentido() {
+	public Sentido obtenerSentido() {
 		return this.sentido;
 	}
 	public void establecerTamano(Entorno entorno) {

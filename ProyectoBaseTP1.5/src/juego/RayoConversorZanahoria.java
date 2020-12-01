@@ -16,29 +16,30 @@ public class RayoConversorZanahoria {
 		this.ancho=30;
 		this.imagen=Herramientas.cargarImagen("./resources/spells/conversorzanahoria4.png");
 	}
-	public double getX() {
+	public double obtenerX() {
 		return this.x;
 	}
-	public double getY() {
+	public double obtenerY() {
 		return this.y;
 	}
-	public double getAncho() {
+	public double obtenerAncho() {
 		return this.ancho;
 	}
-	public double getAlto() {
+	public double obtenerAlto() {
 		return this.alto;
 	}
 	public void dibujar(Entorno entorno) {
 		entorno.dibujarImagen(imagen, x, y, 0, 0.04);
 		}
+	
 	public void movimientoAtaque() {
 		this.y-=1.5;
 	}
 	public void establecerPosX(Conejo conejo) {
-		this.x=conejo.getX();
+		this.x=conejo.obtenerX();
 	}
 	public void establecerPosY(Conejo conejo) {
-		this.y=conejo.getY();
+		this.y=conejo.obtenerY();
 	}
 	
 	

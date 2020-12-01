@@ -17,35 +17,35 @@ public class Fondo {
 		this.imagen = Herramientas.cargarImagen("./resources/fondo/pasto1.png"); 
 	}
 
-	public double getX() {
+	public double obtenerX() { //getX
 		return x;
 	}	
 
-	public void setX(double x) {
+	public void asignarX(double x) { //setX
 		this.x = x;
 	}
 
-	public double getY() {
+	public double obtenerY() { //getY
 		return y;
 	}
 
-	public void setY(double y) {
+	public void asignarY(double y) { //setY
 		this.y = y;
 	}
 
-	public int getAncho() {
+	public int obtenerAncho() {	//getAncho
 		return ancho;
 	}
 
-	public void setAncho(int ancho) {
+	public void asignarAncho(int ancho) { //setAncho
 		this.ancho = ancho;
 	}
 	
-	public int getAlto() {
+	public int obtenerAlto() { //getAlto
 		return alto;
 	}
 
-	public void setAlto(int alto) {
+	public void asignarAlto(int alto) { //setAlto
 		this.alto = alto;
 	}	
 

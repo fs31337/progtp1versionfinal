@@ -20,34 +20,31 @@ public class Conejo {
 		
 	}
 	
-	public double getX() {
+	public double obtenerX() { //getX
 		return this.x;
 	}
-	public double getY() {
+	public double obtenerY() { //getY
 		return this.y;
 	}
-	public double getAncho() {
+	public double obtenerAncho() { //getAncho
 		return this.ancho;
 	}
-	public double getAlto() {
+	public double obtenerAlto() { //getAlto
 		return this.alto;
 	}
-	public double getVelocidad() {
+	public double obtenerVelocidad() { //getVelocidad
 		return this.velocidad;
-	}
-	
-	
-	
-	public void setX(double x) {
+	}	
+	public void asignarX(double x) { //setX
 		this.x=x;
 	}
-	public void setY(double y) {
+	public void asignarY(double y) { //setY
 		this.y=y;
 	}
-	public void setAncho(double ancho) {
+	public void asignarAncho(double ancho) { //setAncho
 		this.ancho=ancho;
 	}
-	public void setAlto(double alto) {
+	public void asignarAlto(double alto) {	//setAlto
 		this.alto=alto;
 	}
 	

@@ -19,47 +19,35 @@ public class Auto {
 		cargarImagenes();
 		this.imagen = autos[nRandom()];
 	}
-	public double getX() {
+	public double obtenerX() { 
 		return this.x;
 	}
-	public double getY() {
+	public double obtenerY() { 
 		return this.y;
 	}
-	public double getAncho() {
+	public double obtenerAncho() { 
 		return this.ancho;
 	}
-	public double getAlto() {
+	public double obtenerAlto() { 
 		return this.alto;
 	}
-	public void setX(double x) {
+	public void asignarX(double x) { 
 		this.x=x;
 	}
 	public void dibujar(Entorno entorno) {
 		entorno.dibujarImagen(imagen, x, y, angulo, 0.7);
 	}
 	public void avanzarPorCarretera(Carretera carretera, double velocidad) {
-		this.y=carretera.getY();
-		if(carretera.getSentido().equals(Sentido.DERECHA)) {
+		this.y=carretera.obtenerY();
+		if(carretera.obtenerSentido().equals(Sentido.DERECHA)) {
 			this.x+=velocidad;
 			this.angulo = 1.57;
 		}
-		else if(carretera.getSentido().equals(Sentido.IZQUIERDA)) {
+		else if(carretera.obtenerSentido().equals(Sentido.IZQUIERDA)) {
 			this.x-=velocidad;
 			this.angulo = 17.27;
-		}
-		
-	}
-	/*public void detenerPorCarretera(Carretera carretera, double velocidad) {
-		this.y=carretera.getY();
-		if(carretera.getSentido().equals(Sentido.DERECHA)) {
-			this.x-=velocidad;
-		}
-		else if(carretera.getSentido().equals(Sentido.IZQUIERDA)) {
-			this.x+=velocidad;
-		}
-		
-	}*/
-	
+		}		
+	}	
 	private void cargarImagenes() {
 		try {
 			Image auto1 = Herramientas.cargarImagen("./resources/cars/red.png");

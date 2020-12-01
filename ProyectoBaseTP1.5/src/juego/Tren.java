@@ -17,22 +17,22 @@ public class Tren {
 		this.imagen = Herramientas.cargarImagen("./resources/tren/tren.png");
 		
 	}
-	public double getX() {
+	public double obtenerX() {
 		return this.x;
 	}
-	public double getY() {
+	public double obtenerY() {
 		return this.y;
 	}
-	public double getAncho() {
+	public double obtenerAncho() {
 		return this.ancho;
 	}
-	public double getAlto() {
+	public double obtenerAlto() {
 		return this.alto;
 	}
-	public void setX(double x) {
+	public void asignarX(double x) {
 		this.x=x;
 	}
-	public void setY(double y) {
+	public void asignarY(double y) {
 		this.y=y;
 	}
 	public void dibujar(Entorno entorno) {
@@ -41,7 +41,7 @@ public class Tren {
 	
 	public void avanzarPorVia(Via via) {
 		this.x+=velocidad;
-		this.y=via.getY();
+		this.y=via.obtenerY();
 	}
 	
 	public void detener(double y) {

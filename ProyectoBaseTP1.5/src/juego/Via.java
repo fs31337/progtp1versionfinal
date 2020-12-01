@@ -18,10 +18,10 @@ public class Via {
 		this.alto=70;
 		this.imagen = Herramientas.cargarImagen("./resources/tren/via1.png");
 	}
-	public double getY() {
+	public double obtenerY() {
 		return this.y;
 	}
-	public void setY(double y) {
+	public void asignarY(double y) {
 		this.y=y;
 	}
 	public void dibujar(Entorno entorno) {
